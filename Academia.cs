@@ -8,6 +8,33 @@ namespace atividadeAv
 {
     public class Academia
     {   
+        public static List<Treino> AdicionaTreino(){
+            List<Treino> treinos = new List<Treino>();
+
+        }
+        public static List<Exercicio> AdicionaExercicio(){
+            List<Exercicio> exercicios = new List<Exercicio>();
+            //Incluindo alguns exercicios
+            //GrupoMuscular, Series, Repeticoes, TempoIntervaloSegundos
+            Exercicio e1 = new Exercicio("Peito", 15, 4, 30);
+
+            Exercicio e2 = new Exercicio("Costas", 12, 8, 45);
+
+            Exercicio e3 = new Exercicio("Pernas", 20, 5, 60);
+
+            Exercicio e4 = new Exercicio("Ombros", 18, 6, 40);
+
+            Exercicio e5 = new Exercicio("Bíceps", 15, 10, 30);
+
+            Exercicio e6 = new Exercicio("Tríceps", 16, 8, 45);
+
+            Exercicio e7 = new Exercicio("Abdominais", 25, 15, 30);
+            
+            Exercicio e8 = new Exercicio("Pular corda", 30, 10, 60);
+
+            Exercicio e9 = new Exercicio("Glúteos", 15, 15, 45);
+
+        }
         public static List<Treinador> AdicionaTreinadores(){
             List<Treinador> treinadores = new List<Treinador>();
             try
