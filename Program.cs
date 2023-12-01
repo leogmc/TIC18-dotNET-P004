@@ -5,7 +5,7 @@ CultureInfo.CurrentCulture = CultureInfo.CreateSpecificCulture("pt-BR");
 List<Treinador> treinadores = Academia.AdicionaTreinadores();
 List<Cliente> clientes = Academia.AdicionaCliente();
 List<Exercicio> exercicios = Academia.AdicionaExercicio();
-//List<Treino> treinos = Academia.AdicionaTreinos(treinadores, clientes, exercicios);
+List<Treino> treinos = Academia.AdicionaTreinos(treinadores, clientes, exercicios);
 // . Treinadores com idade entre dois valores
 // 2. Clientes com idade entre dois valores
 // 3. Clientes com IMC (peso/altura*altura) maior que um valor informado,

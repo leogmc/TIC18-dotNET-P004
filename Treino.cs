@@ -20,6 +20,8 @@ namespace atividadeAv
             Objetivo = objetivo;
             TreinadorResponsavel = treinador;
             ListaExercicios = new List<Exercicio>();
+            ClientesAvaliacao = new List<(Cliente, int)>();
+            ClientesAssociados = new List<ClienteTreino>();
         }
         public void AdicionarExercicio(Exercicio exercicio)
         {
@@ -60,6 +62,30 @@ namespace atividadeAv
             {
                 ClientesAssociados.Remove(associacao);
                 cliente.TreinosAssociados.Remove(associacao);
+            }
+        }
+        public void AvaliarTreino(Cliente cliente, int pontuacao)
+        {
+            // Verifica se o cliente está associado ao treino
+            if (ClientesAssociados.Any(c => c.Cliente == cliente))
+            {
+                // Verifica se o cliente já avaliou o treino
+                var avaliacaoExistente = ClientesAvaliacao.FirstOrDefault(a => a.Item1 == cliente);
+
+                if (avaliacaoExistente == default)
+                {
+                    // Adiciona a avaliação do cliente
+                    ClientesAvaliacao.Add((cliente, pontuacao));
+                    Console.WriteLine($"Treino avaliado com sucesso por {cliente.Nome}.");
+                }
+                else
+                {
+                    Console.WriteLine($"{cliente.Nome} já avaliou este treino.");
+                }
+            }
+            else
+            {
+                Console.WriteLine($"{cliente.Nome} não está associado a este treino.");
             }
         }
     }

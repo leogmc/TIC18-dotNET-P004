@@ -286,7 +286,7 @@ namespace atividadeAv
 
             Exercicio e9 = new Exercicio("Glúteos", 15, 15, 45);
             exercicios.Add(e9);
-            
+
             return exercicios;
         }
         public static List<Treino> AdicionaTreinos(List<Treinador> treinadores, List<Cliente> clientes, List<Exercicio> exercicios)
@@ -299,6 +299,8 @@ namespace atividadeAv
             // Adiciona exercícios ao treino
             treino1.AdicionarExercicio(exercicios[0]);
             treino1.AdicionarExercicio(exercicios[1]);
+            treino1.AdicionarExercicio(exercicios[2]);
+            treino1.AdicionarExercicio(exercicios[3]);
             // ... adicione mais exercícios conforme necessário
 
             // Associa clientes ao treino
@@ -311,11 +313,15 @@ namespace atividadeAv
             {
                 Console.WriteLine($"Erro ao associar cliente: {ex.Message}");
             }
+            // Avalia o treino pelo cliente associado
+            treino1.AvaliarTreino(clientes[0], 9);
+            treino1.AvaliarTreino(clientes[1], 8);
 
              //Inclusao do Treino 2 e todo o vinculo
             Treino treino2 = new Treino("Cardio", "Emagrecimento", treinadores[1]);
 
             // Adiciona exercícios ao treino
+            treino2.AdicionarExercicio(exercicios[0]);
             treino2.AdicionarExercicio(exercicios[5]);
             treino2.AdicionarExercicio(exercicios[6]);
             treino2.AdicionarExercicio(exercicios[7]);
@@ -333,6 +339,10 @@ namespace atividadeAv
             {
                 Console.WriteLine($"Erro ao associar cliente: {ex.Message}");
             }
+            // Avalia o treino pelo cliente associado
+            treino2.AvaliarTreino(clientes[2], 10);
+            treino2.AvaliarTreino(clientes[3], 9);
+            treino2.AvaliarTreino(clientes[4], 9);
 
             // Adicione o treino à lista de treinos
             treinos.Add(treino2);
