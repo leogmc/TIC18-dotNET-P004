@@ -12,4 +12,12 @@ namespace
         public int Repeticoes { get; set; }
         public int TempoIntervaloSegundos { get; set; }
     }
+    // Construtor que aceita os parâmetros durante a criação do objeto
+    public Exercicio(string grupoMuscular, int series, int repeticoes, int tempoIntervaloSegundos)
+    {
+        GrupoMuscular = grupoMuscular;
+        Series = series;
+        Repeticoes = repeticoes;
+        TempoIntervaloSegundos = tempoIntervaloSegundos;
+    }
 }
