@@ -42,6 +42,9 @@ namespace atividadeAv
         public string CREF { get; set; }
     }
     public class Cliente : Pessoa{
+        
+        public List<ClienteTreino> TreinosAssociados { get; set; }
+
         private string _cpf;
         private double _altura;
         private double _peso;
@@ -57,22 +60,6 @@ namespace atividadeAv
                 }
                 
             }
-        }
-         public List<Treino> TreinosAssociados { get; set; }
-
-        public void incluiTreino(Treino treino)
-        {
-            if (TreinosAssociados.Count < 2)
-            {
-                TreinosAssociados.Add(treino);
-            }
-            else
-            {
-                throw new InvalidOperationException("Um cliente pode estar associado a no máximo 2 treinos.");
-            }
-        }
-        public void removerTreino(Treinador treino){
-            TreinosAssociados.Remove(Treino);
         }
         
         public double Altura { 
