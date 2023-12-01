@@ -347,8 +347,6 @@ namespace atividadeAv
             // Adicione o treino à lista de treinos
             treinos.Add(treino2);
 
-           
-
             return treinos;
         }
     }
