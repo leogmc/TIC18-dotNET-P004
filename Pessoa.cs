@@ -83,5 +83,9 @@ namespace atividadeAv
                 _peso = value;   
             }
         }
+        public Cliente(){
+            TreinosAssociados = new List<ClienteTreino>();
+        }
+        
     }
 }

@@ -8,9 +8,20 @@ namespace atividadeAv
 {
     public class Academia
     {
-        public static List<Treinador> AdicionaTreinadores()
+
+        List<Treinador> treinadores;
+        List<Cliente> clientes;
+        List<Exercicio> exercicios;
+        List<Treino> treinos;
+        public Academia()
         {
-            List<Treinador> treinadores = new List<Treinador>();
+            treinadores = new List<Treinador>(); //Academia.AdicionaTreinadores();
+            clientes = new List<Cliente>(); //Academia.AdicionaCliente();
+            exercicios = new List<Exercicio>(); //Academia.AdicionaExercicio();
+            treinos = new List<Treino>();
+        }
+        public void AdicionaTreinadores()
+        {
             try
             {
                 //Treinador 1
@@ -113,12 +124,11 @@ namespace atividadeAv
             catch (System.Exception ex) { System.Console.WriteLine($"Nao foi possivel incluir treinador {ex.Message}"); }
 
 
-            return treinadores;
+
         }
 
-        public static List<Cliente> AdicionaCliente()
+        public void AdicionaCliente()
         {
-            List<Cliente> clientes = new List<Cliente>();
             try
             {
                 //Cliente 1
@@ -252,12 +262,11 @@ namespace atividadeAv
             catch (System.ArgumentException ex1) { System.Console.WriteLine($"Erro no argumento {ex1.Message}"); }
             catch (System.Exception ex) { System.Console.WriteLine($"Nao foi possivel incluir cliente {ex.Message}"); }
 
-            return clientes;
+
 
         }
-        public static List<Exercicio> AdicionaExercicio()
+        public void AdicionaExercicio()
         {
-            List<Exercicio> exercicios = new List<Exercicio>();
             //Incluindo alguns exercicios
             //GrupoMuscular, Series, Repeticoes, TempoIntervaloSegundos
             Exercicio e1 = new Exercicio("Peito", 15, 4, 30);
@@ -286,20 +295,19 @@ namespace atividadeAv
 
             Exercicio e9 = new Exercicio("Glúteos", 15, 15, 45);
             exercicios.Add(e9);
-            
-            return exercicios;
-        }
-        public static List<Treino> AdicionaTreinos(List<Treinador> treinadores, List<Cliente> clientes, List<Exercicio> exercicios)
-        {
-            List<Treino> treinos = new List<Treino>();
 
+
+        }
+        public void AdicionaTreinos()
+        {
             //Inclusao do Treino 1 e todo o vinculo
             Treino treino1 = new Treino("Musculação", "Hipertrofia", treinadores[0]);
 
             // Adiciona exercícios ao treino
             treino1.AdicionarExercicio(exercicios[0]);
             treino1.AdicionarExercicio(exercicios[1]);
-            // ... adicione mais exercícios conforme necessário
+            treino1.AdicionarExercicio(exercicios[2]);
+            treino1.AdicionarExercicio(exercicios[3]);
 
             // Associa clientes ao treino
             try
@@ -311,16 +319,20 @@ namespace atividadeAv
             {
                 Console.WriteLine($"Erro ao associar cliente: {ex.Message}");
             }
+            // Avalia o treino pelo cliente associado
+            treino1.AvaliarTreino(clientes[0], 9);
+            treino1.AvaliarTreino(clientes[1], 8);
 
-             //Inclusao do Treino 2 e todo o vinculo
+            //Inclusao do Treino 2 e todo o vinculo
             Treino treino2 = new Treino("Cardio", "Emagrecimento", treinadores[1]);
 
             // Adiciona exercícios ao treino
+            treino2.AdicionarExercicio(exercicios[0]);
             treino2.AdicionarExercicio(exercicios[5]);
             treino2.AdicionarExercicio(exercicios[6]);
             treino2.AdicionarExercicio(exercicios[7]);
             treino2.AdicionarExercicio(exercicios[8]);
-            
+
 
             // Associa clientes ao treino
             try
@@ -333,13 +345,96 @@ namespace atividadeAv
             {
                 Console.WriteLine($"Erro ao associar cliente: {ex.Message}");
             }
+            // Avalia o treino pelo cliente associado
+            treino2.AvaliarTreino(clientes[2], 10);
+            treino2.AvaliarTreino(clientes[3], 9);
+            treino2.AvaliarTreino(clientes[4], 9);
 
             // Adicione o treino à lista de treinos
             treinos.Add(treino2);
 
-           
 
-            return treinos;
+        }
+
+        public void RelatorioTreinadoresIntevaloIdades(int idadeMin, int idadeMax)
+        {
+            System.Console.WriteLine($"1. Treinadores com idade entre {idadeMin} e {idadeMax} anos");
+            System.Console.WriteLine("--------------------------------------");
+            var treinadoresMais40 = treinadores.Where(t => t.Idade >= 40 && t.Idade <= 60);
+
+            foreach (var treinador in treinadoresMais40)
+            {
+                Console.WriteLine($"Treinador: Nome: {treinador.Nome}, Idade: {treinador.Idade}");
+            }
+            Console.WriteLine("");
+        }
+
+        public void RelatorioClientesIntevaloIdades(int idadeMin, int idadeMax)
+        {
+            System.Console.WriteLine($"2. Clientes com idade entre {idadeMin} e {idadeMax} anos");
+            System.Console.WriteLine("--------------------------------------");
+            var clientesMais23 = clientes.Where(t => t.Idade >= idadeMin && t.Idade <= idadeMin);
+
+            foreach (var cliente in clientesMais23)
+            {
+                Console.WriteLine($"Cliente: Nome: {cliente.Nome}, Idade: {cliente.Idade}");
+            }
+            Console.WriteLine("");
+
+        }
+
+
+        public void RelatorioClientesIMCMaior(int num)
+        {
+            System.Console.WriteLine($"3. Clientes com IMC (peso/altura*altura) maior que {num}");
+            System.Console.WriteLine("--------------------------------------");
+
+            var clientesMaisIMC = clientes.Where(t => (t.Peso / (t.Altura * t.Altura)) >= num);
+
+            foreach (var cliente in clientesMaisIMC)
+            {
+                Console.WriteLine($"Nome: {cliente.Nome}, IMC: {cliente.Peso / (cliente.Altura * cliente.Altura)}");
+            }
+            Console.WriteLine("");
+        }
+        public void RelatorioClientesOrdemAlfabetica()
+        {
+
+            System.Console.WriteLine("4. Clientes em ordem alfabética");
+            System.Console.WriteLine("--------------------------------------");
+            var clientesOrdem = clientes.OrderBy(c => c.Nome);
+            foreach (var cliente in clientesOrdem)
+            {
+                Console.WriteLine($"Nome: {cliente.Nome}, Idade: {cliente.Idade}");
+            }
+            Console.WriteLine("");
+        }
+
+
+        public void RelatorioClientesOrdemIdade()
+        {
+            System.Console.WriteLine("5. Clientes em ordem idade");
+            System.Console.WriteLine("--------------------------------------");
+            var clientesOrdemIdade = clientes.OrderBy(c => c.Idade);
+            foreach (var cliente in clientesOrdemIdade)
+            {
+                Console.WriteLine($"Nome: {cliente.Nome}, Idade: {cliente.Idade}");
+            }
+            Console.WriteLine("");
+        }
+        public void RelatorioAniversariantesDoMes(int mes)
+        {
+            System.Console.WriteLine($"6. Treinadores e clientes aniversariantes do mês {mes}");
+            System.Console.WriteLine("--------------------------------------");
+            List<Pessoa> pessoas = new List<Pessoa>();
+            pessoas.AddRange(treinadores);
+            pessoas.AddRange(clientes);
+
+            var aniversariantes = pessoas.Where(p => p.DtNascimento.Month == mes);
+            foreach (var pessoa in aniversariantes)
+            {
+                Console.WriteLine($"Nome: {pessoa.Nome}, Data de Nascimento: {pessoa.DtNascimento.ToShortDateString()}, Idade: {pessoa.Idade}");
+            }
         }
     }
 }
