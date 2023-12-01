@@ -8,6 +8,7 @@ namespace
     public class Treino
     {
         public string Tipo { get; set; }
+        
         public string Objetivo { get; set; }
         public List<Exercicio> ListaExercicios { get; set; }
         public int DuracaoEstimadaMinutos { get; set; }
