@@ -11,6 +11,7 @@ namespace atividadeAv
         public int Series { get; set; }
         public int Repeticoes { get; set; }
         public int TempoIntervaloSegundos { get; set; }
+        
         // Construtor que aceita os parâmetros durante a criação do objeto
         public Exercicio(string grupoMuscular, int series, int repeticoes, int tempoIntervaloSegundos)
         {
