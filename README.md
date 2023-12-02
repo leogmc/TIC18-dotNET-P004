@@ -7,3 +7,4 @@ José Ulian Cardoso Almeida - e-mail: ulian18@gmail.com
 Leandro Garcia Magalhães Cerqueira - e-mail: ifbaianoleo@gmail.com
 
 Nairan Santos - e-mail: nairanbsantos28@gmail.com
+

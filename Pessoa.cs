@@ -24,7 +24,9 @@ namespace atividadeAv
         public int Idade {get;  set;}
        
     }
-    public class Treinador : Pessoa{
+    public class Treinador : Pessoa
+    {
+        public List<Treino> Treinos { get; set; }
         private string _cpf;
         public string CPF { 
             get { return _cpf; }
@@ -35,19 +37,31 @@ namespace atividadeAv
                 }
                 else{
                     throw new ArgumentException("CPF precisa ter 11 digitos.");
-                }
-                
+                }               
             }
         }
         public string CREF { get; set; }
+        public Treinador(){
+            Treinos = new List<Treino>();
+            _cpf="";
+            CREF="";
+        }
+        public void AdicionarTreino(Treino treino){
+            Treinos.Add(treino);
+        }
     }
-    public class Cliente : Pessoa{
-        
+    public class Cliente : Pessoa
+    {   
         public List<ClienteTreino> TreinosAssociados { get; set; }
-
         private string _cpf;
         private double _altura;
         private double _peso;
+        public Cliente(){
+            TreinosAssociados = new List<ClienteTreino> ();
+            _cpf = "";
+            _altura = 0.0;
+            _peso = 0.0;
+        }
         public string CPF { 
             get { return _cpf; }
             set { 
@@ -58,7 +72,6 @@ namespace atividadeAv
                 else{
                     throw new ArgumentException("CPF precisa ter 11 digitos.");
                 }
-                
             }
         }
         
@@ -83,9 +96,5 @@ namespace atividadeAv
                 _peso = value;   
             }
         }
-        public Cliente(){
-            TreinosAssociados = new List<ClienteTreino>();
-        }
-        
     }
 }
