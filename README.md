@@ -8,3 +8,5 @@ Leandro Garcia Magalhães Cerqueira - e-mail: ifbaianoleo@gmail.com
 
 Nairan Santos - e-mail: nairanbsantos28@gmail.com
 
+Luiz Felipe C. Gomes - e-mail: luizfelipecrx@gmail.com
+
