@@ -24,6 +24,7 @@ namespace atividadeAv
                 Console.WriteLine("5. Relatório de Clientes em Ordem de Idade");
                 Console.WriteLine("6. Relatório de Aniversariantes do Mês");
                 Console.WriteLine("0. Voltar para o menu principal");
+                Console.WriteLine("============================");
                 Console.Write("Escolha uma opção: ");
                 choice = Console.ReadLine();
 
@@ -96,6 +97,7 @@ namespace atividadeAv
                 Console.WriteLine("0. Sair");
                 Console.WriteLine("=============");
 
+                Console.Write("Escolha uma opção: ");
                 choice = Console.ReadLine();
                 try
                 {
