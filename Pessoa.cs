@@ -24,7 +24,8 @@ namespace atividadeAv
         public int Idade {get;  set;}
        
     }
-    public class Treinador : Pessoa{
+    public class Treinador : Pessoa
+    {
         private string _cpf;
         public string CPF { 
             get { return _cpf; }
@@ -35,14 +36,13 @@ namespace atividadeAv
                 }
                 else{
                     throw new ArgumentException("CPF precisa ter 11 digitos.");
-                }
-                
+                }               
             }
         }
         public string CREF { get; set; }
     }
-    public class Cliente : Pessoa{
-        
+    public class Cliente : Pessoa
+    {   
         public List<ClienteTreino> TreinosAssociados { get; set; }
         private string _cpf;
         private double _altura;
@@ -57,7 +57,6 @@ namespace atividadeAv
                 else{
                     throw new ArgumentException("CPF precisa ter 11 digitos.");
                 }
-                
             }
         }
         
