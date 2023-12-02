@@ -11,349 +11,320 @@ namespace atividadeAv
 
         List<Treinador> treinadores;
         List<Cliente> clientes;
-        List<Exercicio> exercicios;
         List<Treino> treinos;
+
         public Academia()
         {
             treinadores = new List<Treinador>(); //Academia.AdicionaTreinadores();
             clientes = new List<Cliente>(); //Academia.AdicionaCliente();
-            exercicios = new List<Exercicio>(); //Academia.AdicionaExercicio();
             treinos = new List<Treino>();
         }
-        public void AdicionaTreinadores()
+
+        public void AdicionaTreinador()
         {
-            try
+            Console.WriteLine("==== Adicionar Treinador ====");
+            Console.Write("Nome: ");
+            string nome = Console.ReadLine();
+
+            Console.Write("CPF: ");
+            string cpf = Console.ReadLine();
+
+            Console.Write("CREF: ");
+            string cref = Console.ReadLine();
+
+            if (SeTreinadorExiste(cpf, cref))
             {
-                //Treinador 1
-                Treinador t1 = new Treinador();
-                t1.Nome = "Luiz Gustavo";
-                t1.DtNascimento = new DateTime(1979, 6, 8);
-                t1.CPF = "12345678901";
-                t1.CREF = "123456";
-                foreach (var instrutor in treinadores)
-                {
-                    if (instrutor.CPF == t1.CPF)
-                    {
-                        throw new Exception($"Ops. O CPF: {t1.CPF} já existe na base.");
-                    }
-                    else if (instrutor.CREF == t1.CREF)
-                    {
-                        throw new Exception($"Ops. O CREF: {t1.CREF} já existe na base.");
-                    }
-                }
-
-                treinadores.Add(t1);
+                Console.WriteLine("Treinador existente. Tente novamente.");
+                return;
             }
-            catch (System.ArgumentException ex1) { System.Console.WriteLine($"Erro no argumento {ex1.Message}"); }
-            catch (System.Exception ex) { System.Console.WriteLine($"Nao foi possivel incluir treinador {ex.Message}"); }
 
-            try
+            Console.Write("Ano de nascimento: ");
+            int ano;
+            if (!int.TryParse(Console.ReadLine(), out ano))
             {
-
-                //Treinador 2
-                Treinador t2 = new Treinador();
-                t2.Nome = "Roberta Lima";
-                t2.DtNascimento = new DateTime(1988, 8, 8);
-                t2.CPF = "02345678901";
-                t2.CREF = "133456";
-                foreach (var instrutor in treinadores)
-                {
-                    if (instrutor.CPF == t2.CPF)
-                    {
-                        throw new Exception($"Ops. O CPF: {t2.CPF} já existe na base.");
-                    }
-                    else if (instrutor.CREF == t2.CREF)
-                    {
-                        throw new Exception($"Ops. O CREF: {t2.CREF} já existe na base.");
-                    }
-                }
-                treinadores.Add(t2);
+                throw new FormatException("Digite um valor numérico inteiro para o ano.");
             }
-            catch (System.ArgumentException ex1) { System.Console.WriteLine($"Erro no argumento {ex1.Message}"); }
-            catch (System.Exception ex) { System.Console.WriteLine($"Nao foi possivel incluir treinador {ex.Message}"); }
-
-
-            try
+            Console.Write("Mês de nascimento: ");
+            int mes;
+            if (!int.TryParse(Console.ReadLine(), out mes))
             {
-                //Treinador 3
-                Treinador t3 = new Treinador();
-                t3.Nome = "Matheus Santos";
-                t3.DtNascimento = new DateTime(1977, 4, 18);
-                t3.CPF = "02145678901";
-                t3.CREF = "1333356";
-                foreach (var instrutor in treinadores)
-                {
-                    if (instrutor.CPF == t3.CPF)
-                    {
-                        throw new Exception($"Ops. O CPF: {t3.CPF} já existe na base.");
-                    }
-                    else if (instrutor.CREF == t3.CREF)
-                    {
-                        throw new Exception($"Ops. O CREF: {t3.CREF} já existe na base.");
-                    }
-                }
-                treinadores.Add(t3);
+                throw new FormatException("Digite um valor numérico inteiro para o mês.");
             }
-            catch (System.ArgumentException ex1) { System.Console.WriteLine($"Erro no argumento {ex1.Message}"); }
-            catch (System.Exception ex) { System.Console.WriteLine($"Nao foi possivel incluir treinador {ex.Message}"); }
-
-
-
-            try
+            Console.Write("Dia de nascimento: ");
+            int dia;
+            if (!int.TryParse(Console.ReadLine(), out dia))
             {
-                //Treinador 4
-                Treinador t4 = new Treinador();
-                t4.Nome = "Juliana Pereira";
-                t4.DtNascimento = new DateTime(2001, 4, 18);
-                t4.CPF = "02015678901";
-                t4.CREF = "1334356";
-                foreach (var instrutor in treinadores)
-                {
-                    if (instrutor.CPF == t4.CPF)
-                    {
-                        throw new Exception($"Ops. O CPF: {t4.CPF} já existe na base.");
-                    }
-                    else if (instrutor.CREF == t4.CREF)
-                    {
-                        throw new Exception($"Ops. O CREF: {t4.CREF} já existe na base.");
-                    }
-                }
-                treinadores.Add(t4);
+                throw new FormatException("Digite um valor numérico inteiro para o dia.");
             }
-            catch (System.ArgumentException ex1) { System.Console.WriteLine($"Erro no argumento {ex1.Message}"); }
-            catch (System.Exception ex) { System.Console.WriteLine($"Nao foi possivel incluir treinador {ex.Message}"); }
 
+            // Validar o DateTime que vai ser criado
+            DateTime dataNascimento;
+            if (!DateTime.TryParse($"{ano}-{mes}-{dia}", out dataNascimento))
+            {
+                throw new FormatException("Data de nascimento inválida.");
+            }
 
+            // Criar treinador como um novo objeto
+            Treinador novoTreinador = new Treinador();
+            novoTreinador.CPF = cpf;
+            novoTreinador.CREF = cref;
+            novoTreinador.DtNascimento = dataNascimento;
+            novoTreinador.Nome = nome;
 
+            treinadores.Add(novoTreinador);
+            Console.WriteLine("Treinador adicionado com sucesso!");
+        }
+
+        // Verificar se treinador já está na lista pelo CPF ou pelo CREF
+        public bool SeTreinadorExiste(string cpf, string cref)
+        {
+            foreach (var treinador in treinadores)
+            {
+                if (treinador.CPF == cpf || treinador.CREF == cref)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public void AdicionaCliente()
         {
-            try
+            Console.WriteLine("==== Adicionar Cliente ====");
+            Console.Write("Nome: ");
+            string nome = Console.ReadLine();
+
+            Console.Write("CPF: ");
+            string cpf = Console.ReadLine();
+
+            if (SeClienteExiste(cpf))
             {
-                //Cliente 1
-                Cliente t1 = new Cliente();
-                t1.Nome = "Luiza Guerra";
-                t1.DtNascimento = new DateTime(2001, 4, 20);
-                t1.CPF = "12345678901";
-                t1.Altura = 1.66;
-                t1.Peso = 72.9;
-                foreach (var cliente in clientes)
-                {
-                    if (cliente.CPF == t1.CPF)
-                    {
-                        throw new Exception($"Ops. O CPF: {t1.CPF} já existe na base.");
-                    }
-                }
-                clientes.Add(t1);
+                Console.WriteLine("Cliente existente. Tente novamente.");
+                return;
             }
-            catch (System.ArgumentException ex1) { System.Console.WriteLine($"Erro no argumento {ex1.Message}"); }
-            catch (System.Exception ex) { System.Console.WriteLine($"Nao foi possivel incluir cliente {ex.Message}"); }
 
-            try
+            Console.Write("Altura: ");
+            double altura;
+            if (!double.TryParse(Console.ReadLine(), out altura))
             {
-                //Cliente 2
-                Cliente t2 = new Cliente();
-                t2.Nome = "Roberto Leal";
-                t2.DtNascimento = new DateTime(2002, 10, 20);
-                t2.CPF = "02345678901";
-                t2.Altura = 1.88;
-                t2.Peso = 80;
-                foreach (var cliente in clientes)
-                {
-                    if (cliente.CPF == t2.CPF)
-                    {
-                        throw new Exception($"Ops. O CPF: {t2.CPF} já existe na base.");
-                    }
-                }
-                clientes.Add(t2);
+                throw new FormatException("Digite um valor numérico para a altura.");
             }
-            catch (System.ArgumentException ex1) { System.Console.WriteLine($"Erro no argumento {ex1.Message}"); }
-            catch (System.Exception ex) { System.Console.WriteLine($"Nao foi possivel incluir cliente {ex.Message}"); }
 
-
-            try
+            Console.Write("Peso: ");
+            double peso;
+            if (!double.TryParse(Console.ReadLine(), out peso))
             {
-                //Cliente 3
-                Cliente t3 = new Cliente();
-                t3.Nome = "Maria Antunes";
-                t3.DtNascimento = new DateTime(1999, 10, 29);
-                t3.CPF = "02145678901";
-                t3.Altura = 1.50;
-                t3.Peso = 55;
-                foreach (var cliente in clientes)
-                {
-                    if (cliente.CPF == t3.CPF)
-                    {
-                        throw new Exception($"Ops. O CPF: {t3.CPF} já existe na base.");
-                    }
-                }
-                clientes.Add(t3);
+                throw new FormatException("Digite um valor numérico para o peso.");
             }
-            catch (System.ArgumentException ex1) { System.Console.WriteLine($"Erro no argumento {ex1.Message}"); }
-            catch (System.Exception ex) { System.Console.WriteLine($"Nao foi possivel incluir cliente {ex.Message}"); }
 
-
-
-            try
+            Console.Write("Ano de nascimento: ");
+            int ano;
+            if (!int.TryParse(Console.ReadLine(), out ano))
             {
-                //Cliente 4
-                Cliente t4 = new Cliente();
-                t4.Nome = "Julio Pereira";
-                t4.DtNascimento = new DateTime(2000, 1, 29);
-                t4.CPF = "02015678901";
-                t4.Altura = 1.67;
-                t4.Peso = 99;
-                foreach (var cliente in clientes)
-                {
-                    if (cliente.CPF == t4.CPF)
-                    {
-                        throw new Exception($"Ops. O CPF: {t4.CPF} já existe na base.");
-                    }
-                }
-                clientes.Add(t4);
+                throw new FormatException("Digite um valor numérico inteiro para o ano.");
             }
-            catch (System.ArgumentException ex1) { System.Console.WriteLine($"Erro no argumento {ex1.Message}"); }
-            catch (System.Exception ex) { System.Console.WriteLine($"Nao foi possivel incluir cliente {ex.Message}"); }
-
-
-
-            try
+            Console.Write("Mês de nascimento: ");
+            int mes;
+            if (!int.TryParse(Console.ReadLine(), out mes))
             {
-                //Cliente 5
-                Cliente t5 = new Cliente();
-                t5.Nome = "Leonardo Pereira";
-                t5.DtNascimento = new DateTime(1981, 2, 21);
-                t5.CPF = "02015678991";
-                t5.Altura = 1.99;
-                t5.Peso = 78;
-                foreach (var cliente in clientes)
-                {
-                    if (cliente.CPF == t5.CPF)
-                    {
-                        throw new Exception($"Ops. O CPF: {t5.CPF} já existe na base.");
-                    }
-                }
-                clientes.Add(t5);
+                throw new FormatException("Digite um valor numérico inteiro para o mês.");
             }
-            catch (System.ArgumentException ex1) { System.Console.WriteLine($"Erro no argumento {ex1.Message}"); }
-            catch (System.Exception ex) { System.Console.WriteLine($"Nao foi possivel incluir cliente {ex.Message}"); }
-
-
-
-            try
+            Console.Write("Dia de nascimento: ");
+            int dia;
+            if (!int.TryParse(Console.ReadLine(), out dia))
             {
-                //Cliente 6
-                Cliente t6 = new Cliente();
-                t6.Nome = "Eduardo Campos";
-                t6.DtNascimento = new DateTime(1980, 2, 23);
-                t6.CPF = "02015676901";
-                t6.Altura = 1.97;
-                t6.Peso = 79;
-                foreach (var cliente in clientes)
-                {
-                    if (cliente.CPF == t6.CPF)
-                    {
-                        throw new Exception($"Ops. O CPF: {t6.CPF} já existe na base.");
-                    }
-                }
-                clientes.Add(t6);
+                throw new FormatException("Digite um valor numérico inteiro para o dia.");
             }
-            catch (System.ArgumentException ex1) { System.Console.WriteLine($"Erro no argumento {ex1.Message}"); }
-            catch (System.Exception ex) { System.Console.WriteLine($"Nao foi possivel incluir cliente {ex.Message}"); }
 
+            // Validar o DateTime que vai ser criado
+            DateTime dataNascimento;
+            if (!DateTime.TryParse($"{ano}-{mes}-{dia}", out dataNascimento))
+            {
+                throw new FormatException("Data de nascimento inválida.");
+            }
 
+            // Criar cliente como um novo objeto
+            Cliente novoCliente = new Cliente();
+            novoCliente.CPF = cpf;
+            novoCliente.DtNascimento = dataNascimento;
+            novoCliente.Altura = altura;
+            novoCliente.Peso = peso;
+            novoCliente.Nome = nome;
 
+            clientes.Add(novoCliente);
+            Console.WriteLine("Cliente adicionado com sucesso!");
         }
-        public void AdicionaExercicio()
+
+        public bool SeClienteExiste(string cpf)
         {
-            //Incluindo alguns exercicios
-            //GrupoMuscular, Series, Repeticoes, TempoIntervaloSegundos
-            Exercicio e1 = new Exercicio("Peito", 15, 4, 30);
-            exercicios.Add(e1);
-
-            Exercicio e2 = new Exercicio("Costas", 12, 8, 45);
-            exercicios.Add(e2);
-
-            Exercicio e3 = new Exercicio("Pernas", 20, 5, 60);
-            exercicios.Add(e3);
-
-            Exercicio e4 = new Exercicio("Ombros", 18, 6, 40);
-            exercicios.Add(e4);
-
-            Exercicio e5 = new Exercicio("Bíceps", 15, 10, 30);
-            exercicios.Add(e5);
-
-            Exercicio e6 = new Exercicio("Tríceps", 16, 8, 45);
-            exercicios.Add(e6);
-
-            Exercicio e7 = new Exercicio("Abdominais", 25, 15, 30);
-            exercicios.Add(e7);
-
-            Exercicio e8 = new Exercicio("Pular corda", 30, 10, 60);
-            exercicios.Add(e8);
-
-            Exercicio e9 = new Exercicio("Glúteos", 15, 15, 45);
-            exercicios.Add(e9);
-
-
+            foreach (var cliente in clientes)
+            {
+                if (cliente.CPF == cpf)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
-        public void AdicionaTreinos()
+
+        public Exercicio CriarExercicio()
         {
-            //Inclusao do Treino 1 e todo o vinculo
-            Treino treino1 = new Treino("Musculação", "Hipertrofia", treinadores[0]);
+            Console.WriteLine("==== Criar Exercício ====");
+            Console.Write("Grupo muscular: ");
+            string grupoMuscular = Console.ReadLine();
 
-            // Adiciona exercícios ao treino
-            treino1.AdicionarExercicio(exercicios[0]);
-            treino1.AdicionarExercicio(exercicios[1]);
-            treino1.AdicionarExercicio(exercicios[2]);
-            treino1.AdicionarExercicio(exercicios[3]);
-
-            // Associa clientes ao treino
-            try
+            Console.Write("Séries: ");
+            int series;
+            if (!int.TryParse(Console.ReadLine(), out series))
             {
-                treino1.AssociarCliente(clientes[0], DateTime.Now, 30);
-                treino1.AssociarCliente(clientes[1], DateTime.Now, 30);
+                throw new FormatException("Séries deve ser um número inteiro.");
             }
-            catch (InvalidOperationException ex)
+
+            Console.Write("Repetições: ");
+            int repeticoes;
+            if (!int.TryParse(Console.ReadLine(), out repeticoes))
             {
-                Console.WriteLine($"Erro ao associar cliente: {ex.Message}");
+                throw new FormatException("Repetições deve ser um número inteiro.");
             }
-            // Avalia o treino pelo cliente associado
-            treino1.AvaliarTreino(clientes[0], 9);
-            treino1.AvaliarTreino(clientes[1], 8);
 
-            //Inclusao do Treino 2 e todo o vinculo
-            Treino treino2 = new Treino("Cardio", "Emagrecimento", treinadores[1]);
-
-            // Adiciona exercícios ao treino
-            treino2.AdicionarExercicio(exercicios[0]);
-            treino2.AdicionarExercicio(exercicios[5]);
-            treino2.AdicionarExercicio(exercicios[6]);
-            treino2.AdicionarExercicio(exercicios[7]);
-            treino2.AdicionarExercicio(exercicios[8]);
-
-
-            // Associa clientes ao treino
-            try
+            Console.Write("Tempo de intervalo em segundos: ");
+            int tempoIntervaloSegundos;
+            if (!int.TryParse(Console.ReadLine(), out tempoIntervaloSegundos))
             {
-                treino2.AssociarCliente(clientes[2], DateTime.Now, 30);
-                treino2.AssociarCliente(clientes[3], DateTime.Now, 30);
-                treino2.AssociarCliente(clientes[4], DateTime.Now, 30);
+                throw new FormatException("Tempo de intervalo em segundos deve ser um número inteiro.");
             }
-            catch (InvalidOperationException ex)
+
+            var novoExercio = new Exercicio(grupoMuscular, series, repeticoes, tempoIntervaloSegundos);
+            return novoExercio;
+            Console.WriteLine("Exercício criado com sucesso.");
+        }
+
+        public void MontarTreino()
+        {
+            Console.WriteLine("==== Criar Treino ====");
+            Console.Write("Tipo do treino: ");
+            string tipoTreino = Console.ReadLine();
+
+            Console.Write("Objetivo do treino: ");
+            string objetivoTreino = Console.ReadLine();
+
+            Treinador treinador = retornarTreinadorPeloCPF();
+
+            Treino novoTreino = new Treino(tipoTreino, objetivoTreino, treinador);
+
+            Console.WriteLine("==== Adicionar Exercícios ao Treino ====");
+            Console.WriteLine("Pressione 'S' para adicionar exercícios ou qualquer outra tecla para sair.");
+
+            string adicionarExercicio = Console.ReadLine();
+            while (adicionarExercicio.ToUpper() == "S")
             {
-                Console.WriteLine($"Erro ao associar cliente: {ex.Message}");
+                Exercicio novoExercicio = CriarExercicio();
+                novoTreino.AdicionarExercicio(novoExercicio);
+
+                Console.WriteLine("Exercício adicionado ao treino.");
+
+                Console.WriteLine("Pressione 'S' para adicionar mais exercícios ou qualquer outra tecla para sair.");
+                adicionarExercicio = Console.ReadLine();
             }
-            // Avalia o treino pelo cliente associado
-            treino2.AvaliarTreino(clientes[2], 10);
-            treino2.AvaliarTreino(clientes[3], 9);
-            treino2.AvaliarTreino(clientes[4], 9);
 
-            // Adicione o treino à lista de treinos
-            treinos.Add(treino2);
+            treinos.Add(novoTreino);
+            Console.WriteLine("Treino criado com sucesso!");
+        }
 
+        public void ExecutarTreino()
+        {
+            Console.WriteLine("==== Executar Treino ====");
+            Cliente cliente = retornarClientePeloCPF();
 
+            Console.WriteLine("Lista de treinos disponíveis:");
+            for (int i = 0; i < treinos.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {treinos[i].Tipo} - {treinos[i].Objetivo}");
+            }
+
+            Console.Write("Digite um ou mais números dos respectivos treinos que vão ser associados ao cliente (separados por vírgula): ");
+            string treinosSelecionados = Console.ReadLine();
+            string[] numerosSelecionados = treinosSelecionados.Split(',');
+
+            foreach (string numeroDoTreino in numerosSelecionados)
+            {
+                int index;
+                if (int.TryParse(numeroDoTreino.Trim(), out index) && index >= 1 && index <= treinos.Count)
+                {
+                    Treino treinoSelecionado = treinos[index - 1];
+
+                    Console.Write($"Digite quantos dias faltam para o treino '{treinoSelecionado.Tipo}' vencer: ");
+                    int vencimentoDias = int.Parse(Console.ReadLine());
+
+                    Console.Write($"Digite a data de início do treino '{treinoSelecionado.Tipo}' (formato dd/mm/yyyy): ");
+                    DateTime dataDeInicio = DateTime.ParseExact(Console.ReadLine(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
+
+                    treinoSelecionado.AssociarCliente(cliente, dataDeInicio, vencimentoDias);
+                    Console.WriteLine("Treino associado com sucesso!");
+                }
+                else
+                {
+                    throw new ArgumentException($"Número de treino inválido: {numeroDoTreino}");
+                }
+            }
+        }
+
+        public void AvaliarTreino()
+        {
+            Console.WriteLine("==== Avaliar Treino ====");
+            Cliente cliente = retornarClientePeloCPF();
+
+            Console.WriteLine("Lista de treinos do cliente:");
+            for (int i = 0; i < cliente.TreinosAssociados.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {cliente.TreinosAssociados[i].Treino.Tipo} - {cliente.TreinosAssociados[i].Treino.Objetivo}");
+            }
+
+            Console.Write("Digite o número do treino que vai ser avaliado: ");
+            string treinoSelecionado = Console.ReadLine();
+
+            int index;
+            if (int.TryParse(treinoSelecionado, out index) && index >= 1 && index <= cliente.TreinosAssociados.Count)
+            {
+                Treino treino = cliente.TreinosAssociados[index - 1].Treino;
+
+                Console.Write("Digite sua avaliação (0-10): ");
+                int avaliacao;
+                if(int.TryParse(Console.ReadLine(), out avaliacao))
+                    treino.AvaliarTreino(cliente, avaliacao);
+                else
+                    throw new FormatException("Insira um número inteiro válido para a avaliação do treino.");
+            }
+        }
+
+        public Cliente retornarClientePeloCPF()
+        {
+            Console.Write("CPF do cliente: ");
+            string cpfDoCliente = Console.ReadLine();
+
+            foreach (var cliente in clientes)
+            {
+                if (cliente.CPF == cpfDoCliente)
+                {
+                    return cliente;
+                }
+            }
+            throw new ArgumentException("Cliente não encontrado.");
+        }
+
+        public Treinador retornarTreinadorPeloCPF()
+        {
+            Console.Write("CPF do treinador: ");
+            string cpfDoTreinador = Console.ReadLine();
+
+            foreach (var treinador in treinadores)
+            {
+                if (treinador.CPF == cpfDoTreinador)
+                {
+                    return treinador;
+                }
+            }
+            throw new ArgumentException("Treinador não encontrado.");
         }
 
         public void RelatorioTreinadoresIntevaloIdades(int idadeMin, int idadeMax)
