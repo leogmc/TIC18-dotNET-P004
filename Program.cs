@@ -6,7 +6,6 @@ namespace atividadeAv
     public class Program
     {
 
-        
         static void Main(string[] args)
         {
             Academia academia = new Academia();
@@ -90,6 +89,10 @@ namespace atividadeAv
                 Console.WriteLine("4. Relatório de Clientes em Ordem Alfabética");
                 Console.WriteLine("5. Relatório de Clientes em Ordem de Idade");
                 Console.WriteLine("6. Relatório de Aniversariantes do Mês");
+                Console.WriteLine("7. Treinos em ordem crescente (pela quantidade de dias até o vencimento)");
+                Console.WriteLine("8. Treinadores em ordem decrescente (com base nas notas dos treinos)");
+                Console.WriteLine("9. Treinos com base em um objetivo");
+                Console.WriteLine("10. Top 10 exercícios");
                 Console.WriteLine("0. Voltar para o menu principal");
                 Console.WriteLine("============================");
                 Console.Write("Escolha uma opção: ");
@@ -147,13 +150,32 @@ namespace atividadeAv
                         int mes;
                         if (!int.TryParse(Console.ReadLine(), out mes))
                             throw new FormatException("Mês deve ser um número inteiro.");
-                        academia.RelatorioAniversariantesDoMes(mes);
+                            academia.RelatorioAniversariantesDoMes(mes);
                         break;
 
-                        
+                    case "7":
+                        academia.RelatorioTreinosOrdemCrescenteQtdVencimento();
+                        break;
+
+                    case "8":
+                        //add later
+                        break;
+
+                    case "9":
+                        //Precisa tratar entradas vazias
+                        System.Console.WriteLine("Insira o objetivo do treino:");
+                        string palavraChave = Console.ReadLine();
+                        academia.RelatorioTreinosPorPalavraChave(palavraChave);
+                        break;
+
+                    case "10":
+                        academia.RelatorioTop10ExerciciosMaisUtilizados();
+                        break;
+   
                     case "0":
                         Console.WriteLine("Voltando para o menu principal...");
                         return;
+
                     default:
                         Console.WriteLine("Opcão inválida. Tente novamente.");
                         break;
