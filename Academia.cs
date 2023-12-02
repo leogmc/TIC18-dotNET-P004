@@ -436,5 +436,69 @@ namespace atividadeAv
                 Console.WriteLine($"Nome: {pessoa.Nome}, Data de Nascimento: {pessoa.DtNascimento.ToShortDateString()}, Idade: {pessoa.Idade}");
             }
         }
+        public void RelatorioTreinadoresOrdemDecrescente()
+        {
+            System.Console.WriteLine("7. Treinadores em ordem decrescente da média de notas dos seus treinos");
+            System.Console.WriteLine("--------------------------------------");
+
+            var treinadoresOrdenados = treinadores
+                .Select(treinador =>
+                {
+                    var notas = treinador.ClientesAssociados
+                        .SelectMany(clienteTreino => clienteTreino.Treino.ClientesAvaliacao)
+                        .Where(avaliacao => avaliacao.Item1.TreinosAssociados.Any(ct => ct.Treino == clienteTreino.Treino))
+                        .Select(avaliacao => avaliacao.Item2);
+
+                    var media = notas.Any() ? notas.Average() : 0;
+
+                    return new
+                    {
+                        Treinador = treinador,
+                        MediaNotas = media
+                    };
+                })
+                .OrderByDescending(treinador => treinador.MediaNotas);
+
+            foreach (var item in treinadoresOrdenados)
+            {
+                Console.WriteLine($"Treinador: {item.Treinador.Nome}, Média de Notas: {item.MediaNotas}");
+            }
+
+            Console.WriteLine("");
+        }
+
+
+        public void RelatorioTreinosOrdemCrescenteQtdVencimento()
+        {
+            Console.WriteLine("8. Treinos em ordem crescente pela quantidade de dias até o vencimento");
+            Console.WriteLine("--------------------------------------");
+
+            var treinosOrdenados = treinos
+                .OrderBy(treino =>
+                {
+                    var clienteTreino = treino.ClientesAssociados.FirstOrDefault();
+
+                    if (clienteTreino != null)
+                    {
+                        var diasRestantes = (clienteTreino.DataInicio.AddDays(clienteTreino.VencimentoDias) - DateTime.Now).Days;
+                        return diasRestantes;
+                    }
+
+                    return int.MaxValue;
+                });
+
+            foreach (var treino in treinosOrdenados)
+            {
+                var clienteTreino = treino.ClientesAssociados.FirstOrDefault();
+                var diasRestantes = clienteTreino != null
+                    ? (clienteTreino.DataInicio.AddDays(clienteTreino.VencimentoDias) - DateTime.Now).Days
+                    : int.MaxValue;
+
+                Console.WriteLine($"Treino: Tipo: {treino.Tipo}, Objetivo: {treino.Objetivo}, Dias até o vencimento: {diasRestantes}");
+            }
+
+            Console.WriteLine("");
+        }
+
     }
 }

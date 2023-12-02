@@ -16,3 +16,5 @@ academia.RelatorioClientesIMCMaior(21);
 academia.RelatorioClientesOrdemAlfabetica();
 academia.RelatorioClientesOrdemIdade();
 academia.RelatorioAniversariantesDoMes(10);
+academia.RelatorioTreinadoresOrdemDecrescente();
+academia.RelatorioTreinosOrdemCrescenteQtdVencimento();
