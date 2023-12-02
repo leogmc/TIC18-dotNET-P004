@@ -21,6 +21,15 @@ namespace atividadeAv
         }
 
         public void AdicionaTreinador()
+
+            exercicios = new List<Exercicio>(); //Academia.AdicionaExercicio();
+            treinos = new List<Treino>()
+            {
+
+            };
+        }
+
+        public void AdicionaTreinadores()
         {
             Console.WriteLine("==== Adicionar Treinador ====");
             Console.Write("Nome: ");
@@ -180,6 +189,7 @@ namespace atividadeAv
                 throw new FormatException("Séries deve ser um número inteiro.");
             }
 
+
             Console.Write("Repetições: ");
             int repeticoes;
             if (!int.TryParse(Console.ReadLine(), out repeticoes))
@@ -223,6 +233,54 @@ namespace atividadeAv
 
                 Console.WriteLine("Exercício adicionado ao treino.");
 
+        }
+        public void AdicionaExercicioAoTreino(Treino treino, List<Exercicio> listaExerciciosEscolhidos)
+        {
+            foreach (var exercicio in listaExerciciosEscolhidos)
+            {
+                treino.AdicionarExercicio(exercicio);
+            }
+        }
+
+
+
+        // Adiciona alguns exercícios
+        List<Exercicio> novosExercicios = new List<Exercicio>
+{
+    new Exercicio("Exercicio1", 10, 3, 20),
+    new Exercicio("Exercicio2", 12, 4, 25),
+    // Adicione mais exercícios conforme necessário
+};
+        //Incluindo alguns exercicios
+        //GrupoMuscular, Series, Repeticoes, TempoIntervaloSegundos
+        Exercicio e1 = new Exercicio("Peito", 15, 4, 30);
+        exercicios.Add(e1);
+
+            Exercicio e2 = new Exercicio("Costas", 12, 8, 45);
+        exercicios.Add(e2);
+
+            Exercicio e3 = new Exercicio("Pernas", 20, 5, 60);
+        exercicios.Add(e3);
+
+            Exercicio e4 = new Exercicio("Ombros", 18, 6, 40);
+        exercicios.Add(e4);
+
+            Exercicio e5 = new Exercicio("Bíceps", 15, 10, 30);
+        exercicios.Add(e5);
+
+            Exercicio e6 = new Exercicio("Tríceps", 16, 8, 45);
+        exercicios.Add(e6);
+
+            Exercicio e7 = new Exercicio("Abdominais", 25, 15, 30);
+        exercicios.Add(e7);
+
+            Exercicio e8 = new Exercicio("Pular corda", 30, 10, 60);
+        exercicios.Add(e8);
+
+            Exercicio e9 = new Exercicio("Glúteos", 15, 15, 45);
+        exercicios.Add(e9);
+
+
                 Console.WriteLine("Pressione 'S' para adicionar mais exercícios ou qualquer outra tecla para sair.");
                 adicionarExercicio = Console.ReadLine();
             }
@@ -230,6 +288,7 @@ namespace atividadeAv
             treinos.Add(novoTreino);
             Console.WriteLine("Treino criado com sucesso!");
         }
+
 
         public void ExecutarTreino()
         {
@@ -325,87 +384,214 @@ namespace atividadeAv
                 }
             }
             throw new ArgumentException("Treinador não encontrado.");
-        }
 
-        public void RelatorioTreinadoresIntevaloIdades(int idadeMin, int idadeMax)
+    public void AdicionaTreinos()
+    {
+        //Inclusao do Treino 1 e todo o vinculo
+        Treino treino1 = new Treino("Musculação", "Hipertrofia", treinadores[0]);
+
+        List<Exercicio> listaExerc = new List<Exercicio>();
+        listaExerc.Add(exercicios[0]);
+        listaExerc.Add(exercicios[1]);
+        listaExerc.Add(exercicios[2]);
+        listaExerc.Add(exercicios[3]);
+
+        // Adiciona exercícios ao treino
+        AdicionaExercicioAoTreino(treino1, listaExerc);
+
+        // Associa clientes ao treino
+        try
         {
-            System.Console.WriteLine($"1. Treinadores com idade entre {idadeMin} e {idadeMax} anos");
-            System.Console.WriteLine("--------------------------------------");
-            var treinadoresMais40 = treinadores.Where(t => t.Idade >= 40 && t.Idade <= 60);
+            treino1.AssociarCliente(clientes[0], DateTime.Now, 30);
+            treino1.AssociarCliente(clientes[1], DateTime.Now, 30);
+        }
+        catch (InvalidOperationException ex)
+        {
+            Console.WriteLine($"Erro ao associar cliente: {ex.Message}");
+        }
+        // Avalia o treino pelo cliente associado
+        treino1.AvaliarTreino(clientes[0], 9);
+        treino1.AvaliarTreino(clientes[1], 8);
 
-            foreach (var treinador in treinadoresMais40)
+        //Inclusao do Treino 2 e todo o vinculo
+        Treino treino2 = new Treino("Cardio", "Emagrecimento", treinadores[1]);
+
+
+        List<Exercicio> listaExerc2 = new List<Exercicio>();
+        listaExerc2.Add(exercicios[0]);
+        listaExerc2.Add(exercicios[5]);
+        listaExerc2.Add(exercicios[6]);
+        listaExerc2.Add(exercicios[7]);
+        listaExerc2.Add(exercicios[8]);
+
+        // Adiciona exercícios ao treino
+        AdicionaExercicioAoTreino(treino2, listaExerc2);
+
+        // Associa clientes ao treino
+        try
+        {
+            treino2.AssociarCliente(clientes[2], DateTime.Now, 30);
+            treino2.AssociarCliente(clientes[3], DateTime.Now, 30);
+            treino2.AssociarCliente(clientes[4], DateTime.Now, 30);
+
+        }
+        catch (InvalidOperationException ex)
+        {
+            Console.WriteLine($"Erro ao associar cliente: {ex.Message}");
+        }
+        // Avalia o treino pelo cliente associado
+        treino2.AvaliarTreino(clientes[2], 10);
+        treino2.AvaliarTreino(clientes[3], 9);
+        treino2.AvaliarTreino(clientes[4], 9);
+
+        // Adicione o treino à lista de treinos
+        treinos.Add(treino2);
+
+
+    }
+
+    public void RelatorioTreinadoresIntevaloIdades(int idadeMin, int idadeMax)
+    {
+        System.Console.WriteLine($"1. Treinadores com idade entre {idadeMin} e {idadeMax} anos");
+        System.Console.WriteLine("--------------------------------------");
+        var treinadoresMais40 = treinadores.Where(t => t.Idade >= 40 && t.Idade <= 60);
+
+        foreach (var treinador in treinadoresMais40)
+        {
+            Console.WriteLine($"Treinador: Nome: {treinador.Nome}, Idade: {treinador.Idade}");
+        }
+        Console.WriteLine("");
+    }
+
+    public void RelatorioClientesIntevaloIdades(int idadeMin, int idadeMax)
+    {
+        System.Console.WriteLine($"2. Clientes com idade entre {idadeMin} e {idadeMax} anos");
+        System.Console.WriteLine("--------------------------------------");
+        var clientesMais23 = clientes.Where(t => t.Idade >= idadeMin && t.Idade <= idadeMin);
+
+        foreach (var cliente in clientesMais23)
+        {
+            Console.WriteLine($"Cliente: Nome: {cliente.Nome}, Idade: {cliente.Idade}");
+        }
+        Console.WriteLine("");
+
+    }
+
+
+    public void RelatorioClientesIMCMaior(int num)
+    {
+        System.Console.WriteLine($"3. Clientes com IMC (peso/altura*altura) maior que {num}");
+        System.Console.WriteLine("--------------------------------------");
+
+        var clientesMaisIMC = clientes.Where(t => (t.Peso / (t.Altura * t.Altura)) >= num);
+
+        foreach (var cliente in clientesMaisIMC)
+        {
+            Console.WriteLine($"Nome: {cliente.Nome}, IMC: {cliente.Peso / (cliente.Altura * cliente.Altura)}");
+        }
+        Console.WriteLine("");
+    }
+    public void RelatorioClientesOrdemAlfabetica()
+    {
+
+        System.Console.WriteLine("4. Clientes em ordem alfabética");
+        System.Console.WriteLine("--------------------------------------");
+        var clientesOrdem = clientes.OrderBy(c => c.Nome);
+        foreach (var cliente in clientesOrdem)
+        {
+            Console.WriteLine($"Nome: {cliente.Nome}, Idade: {cliente.Idade}");
+        }
+        Console.WriteLine("");
+    }
+
+
+    public void RelatorioClientesOrdemIdade()
+    {
+        System.Console.WriteLine("5. Clientes em ordem idade");
+        System.Console.WriteLine("--------------------------------------");
+        var clientesOrdemIdade = clientes.OrderBy(c => c.Idade);
+        foreach (var cliente in clientesOrdemIdade)
+        {
+            Console.WriteLine($"Nome: {cliente.Nome}, Idade: {cliente.Idade}");
+        }
+        Console.WriteLine("");
+    }
+    public void RelatorioAniversariantesDoMes(int mes)
+    {
+        System.Console.WriteLine($"6. Treinadores e clientes aniversariantes do mês {mes}");
+        System.Console.WriteLine("--------------------------------------");
+        List<Pessoa> pessoas = new List<Pessoa>();
+        pessoas.AddRange(treinadores);
+        pessoas.AddRange(clientes);
+
+        var aniversariantes = pessoas.Where(p => p.DtNascimento.Month == mes);
+        foreach (var pessoa in aniversariantes)
+        {
+            Console.WriteLine($"Nome: {pessoa.Nome}, Data de Nascimento: {pessoa.DtNascimento.ToShortDateString()}, Idade: {pessoa.Idade}");
+        }
+        public void RelatorioTreinadoresOrdemDecrescente()
+        {
+            System.Console.WriteLine("7. Treinadores em ordem decrescente da média de notas dos seus treinos");
+            System.Console.WriteLine("--------------------------------------");
+
+            var treinadoresOrdenados = treinadores
+                .Select(treinador =>
+                {
+                    var notas = treinador.ClientesAssociados
+                        .SelectMany(clienteTreino => clienteTreino.Treino.ClientesAvaliacao)
+                        .Where(avaliacao => avaliacao.Item1.TreinosAssociados.Any(ct => ct.Treino == clienteTreino.Treino))
+                        .Select(avaliacao => avaliacao.Item2);
+
+                    var media = notas.Any() ? notas.Average() : 0;
+
+                    return new
+                    {
+                        Treinador = treinador,
+                        MediaNotas = media
+                    };
+                })
+                .OrderByDescending(treinador => treinador.MediaNotas);
+
+            foreach (var item in treinadoresOrdenados)
             {
-                Console.WriteLine($"Treinador: Nome: {treinador.Nome}, Idade: {treinador.Idade}");
+                Console.WriteLine($"Treinador: {item.Treinador.Nome}, Média de Notas: {item.MediaNotas}");
             }
+
             Console.WriteLine("");
         }
 
-        public void RelatorioClientesIntevaloIdades(int idadeMin, int idadeMax)
+
+        public void RelatorioTreinosOrdemCrescenteQtdVencimento()
         {
-            System.Console.WriteLine($"2. Clientes com idade entre {idadeMin} e {idadeMax} anos");
-            System.Console.WriteLine("--------------------------------------");
-            var clientesMais23 = clientes.Where(t => t.Idade >= idadeMin && t.Idade <= idadeMin);
+            Console.WriteLine("8. Treinos em ordem crescente pela quantidade de dias até o vencimento");
+            Console.WriteLine("--------------------------------------");
 
-            foreach (var cliente in clientesMais23)
+            var treinosOrdenados = treinos
+                .OrderBy(treino =>
+                {
+                    var clienteTreino = treino.ClientesAssociados.FirstOrDefault();
+
+                    if (clienteTreino != null)
+                    {
+                        var diasRestantes = (clienteTreino.DataInicio.AddDays(clienteTreino.VencimentoDias) - DateTime.Now).Days;
+                        return diasRestantes;
+                    }
+
+                    return int.MaxValue;
+                });
+
+            foreach (var treino in treinosOrdenados)
             {
-                Console.WriteLine($"Cliente: Nome: {cliente.Nome}, Idade: {cliente.Idade}");
+                var clienteTreino = treino.ClientesAssociados.FirstOrDefault();
+                var diasRestantes = clienteTreino != null
+                    ? (clienteTreino.DataInicio.AddDays(clienteTreino.VencimentoDias) - DateTime.Now).Days
+                    : int.MaxValue;
+
+                Console.WriteLine($"Treino: Tipo: {treino.Tipo}, Objetivo: {treino.Objetivo}, Dias até o vencimento: {diasRestantes}");
             }
-            Console.WriteLine("");
 
-        }
-
-
-        public void RelatorioClientesIMCMaior(int num)
-        {
-            System.Console.WriteLine($"3. Clientes com IMC (peso/altura*altura) maior que {num}");
-            System.Console.WriteLine("--------------------------------------");
-
-            var clientesMaisIMC = clientes.Where(t => (t.Peso / (t.Altura * t.Altura)) >= num);
-
-            foreach (var cliente in clientesMaisIMC)
-            {
-                Console.WriteLine($"Nome: {cliente.Nome}, IMC: {cliente.Peso / (cliente.Altura * cliente.Altura)}");
-            }
-            Console.WriteLine("");
-        }
-        public void RelatorioClientesOrdemAlfabetica()
-        {
-
-            System.Console.WriteLine("4. Clientes em ordem alfabética");
-            System.Console.WriteLine("--------------------------------------");
-            var clientesOrdem = clientes.OrderBy(c => c.Nome);
-            foreach (var cliente in clientesOrdem)
-            {
-                Console.WriteLine($"Nome: {cliente.Nome}, Idade: {cliente.Idade}");
-            }
             Console.WriteLine("");
         }
 
-
-        public void RelatorioClientesOrdemIdade()
-        {
-            System.Console.WriteLine("5. Clientes em ordem idade");
-            System.Console.WriteLine("--------------------------------------");
-            var clientesOrdemIdade = clientes.OrderBy(c => c.Idade);
-            foreach (var cliente in clientesOrdemIdade)
-            {
-                Console.WriteLine($"Nome: {cliente.Nome}, Idade: {cliente.Idade}");
-            }
-            Console.WriteLine("");
-        }
-        public void RelatorioAniversariantesDoMes(int mes)
-        {
-            System.Console.WriteLine($"6. Treinadores e clientes aniversariantes do mês {mes}");
-            System.Console.WriteLine("--------------------------------------");
-            List<Pessoa> pessoas = new List<Pessoa>();
-            pessoas.AddRange(treinadores);
-            pessoas.AddRange(clientes);
-
-            var aniversariantes = pessoas.Where(p => p.DtNascimento.Month == mes);
-            foreach (var pessoa in aniversariantes)
-            {
-                Console.WriteLine($"Nome: {pessoa.Nome}, Data de Nascimento: {pessoa.DtNascimento.ToShortDateString()}, Idade: {pessoa.Idade}");
-            }
-        }
     }
 }
