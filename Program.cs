@@ -28,13 +28,14 @@ namespace atividadeAv
             do
             {
                 Console.WriteLine("==== Menu ====");
-                Console.WriteLine("1. Adicionar Treinador");
-                Console.WriteLine("2. Adicionar Cliente");
-                Console.WriteLine("3. Criar Exercicio");
-                Console.WriteLine("4. Montar Treino");
-                Console.WriteLine("5. Executar Treino");
-                Console.WriteLine("6. Avaliar Treino");
-                Console.WriteLine("7. Menu de Relatórios");
+                Console.WriteLine("1. Incluir Treinador, Cliente, Exercicios, treinos, avaliacao treino");
+                Console.WriteLine("2. Adicionar Treinador");
+                Console.WriteLine("3. Adicionar Cliente");
+                Console.WriteLine("4. Criar Exercicio");
+                Console.WriteLine("5. Montar Treino");
+                Console.WriteLine("6. Executar Treino");
+                Console.WriteLine("7. Avaliar Treino");
+                Console.WriteLine("8. Menu de Relatórios");
                 Console.WriteLine("0. Sair");
                 Console.WriteLine("=============");
 
@@ -44,25 +45,32 @@ namespace atividadeAv
                 {
                     switch (choice)
                     {
+                        
                         case "1":
-                            academia.AdicionaTreinadores();
+                            academia.AdicionaAlgunsClientes();
+                            academia.AdicionaAlgunsTreinadores();
+                            academia.AdicionaAlgunsExercicios();
+                            academia.AdicionaAlgunsTreinos();
                             break;
                         case "2":
-                            academia.AdicionaCliente();
+                            academia.AdicionaTreinadores();
                             break;
                         case "3":
-                            academia.CriarExercicio();
+                            academia.AdicionaCliente();
                             break;
                         case "4":
-                            academia.MontarTreino();
+                            academia.CriarExercicio();
                             break;
                         case "5":
-                            academia.ExecutarTreino();
+                            academia.MontarTreino();
                             break;
                         case "6":
-                            academia.AvaliarTreino();
+                            academia.ExecutarTreino();
                             break;
                         case "7":
+                            academia.AvaliarTreino();
+                            break;
+                        case "8":
                             runMenuDeRelatorios(academia);
                             break;
                         case "0":
