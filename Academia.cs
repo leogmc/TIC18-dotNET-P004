@@ -375,6 +375,8 @@ namespace atividadeAv
                 }
             } while (opcao.ToUpper() == "N" || opcao.ToUpper() == "E");
 
+            //Coloca o treino na lista de treinos
+            treinador.AdicionarTreino(novoTreino);
             treinos.Add(novoTreino);
 
         }
@@ -444,6 +446,8 @@ namespace atividadeAv
             throw new ArgumentException("Treinador não encontrado.");
 
         }
+        #region INclusao de alguns dados
+
         public void AdicionaAlgunsTreinadores()
         {
             try
@@ -682,9 +686,51 @@ namespace atividadeAv
             }
             catch (System.ArgumentException ex1) { System.Console.WriteLine($"Erro no argumento {ex1.Message}"); }
             catch (System.Exception ex) { System.Console.WriteLine($"Nao foi possivel incluir cliente {ex.Message}"); }
+            
+            try
+            {
+                //Cliente 7
+                Cliente t = new Cliente();
+                t.Nome = "Estrela Reis";
+                t.DtNascimento = new DateTime(1980, 2, 23);
+                t.CPF = "02015676991";
+                t.Altura = 1.68;
+                t.Peso = 79;
+                foreach (var cliente in clientes)
+                {
+                    if (cliente.CPF == t.CPF)
+                    {
+                        throw new Exception($"Ops. O CPF: {t.CPF} já existe na base.");
+                    }
+                }
+                clientes.Add(t);
+            }
+            catch (System.ArgumentException ex1) { System.Console.WriteLine($"Erro no argumento {ex1.Message}"); }
+            catch (System.Exception ex) { System.Console.WriteLine($"Nao foi possivel incluir cliente {ex.Message}"); }
+            try
+            {
+                //Cliente 8
+                Cliente t = new Cliente();
+                t.Nome = "Gael Pires";
+                t.DtNascimento = new DateTime(1980, 2, 23);
+                t.CPF = "02015996901";
+                t.Altura = 1.50;
+                t.Peso = 80;
+                foreach (var cliente in clientes)
+                {
+                    if (cliente.CPF == t.CPF)
+                    {
+                        throw new Exception($"Ops. O CPF: {t.CPF} já existe na base.");
+                    }
+                }
+                clientes.Add(t);
+            }
+            catch (System.ArgumentException ex1) { System.Console.WriteLine($"Erro no argumento {ex1.Message}"); }
+            catch (System.Exception ex) { System.Console.WriteLine($"Nao foi possivel incluir cliente {ex.Message}"); }
 
         }
-        public void AdicionaAlgunsExercicios(){
+        public void AdicionaAlgunsExercicios()
+        {
             Exercicio e1 = new Exercicio("Peito", 15, 4, 30);
             exercicios.Add(e1);
 
@@ -705,7 +751,7 @@ namespace atividadeAv
 
             Exercicio e7 = new Exercicio("Abdominais", 25, 15, 30);
             exercicios.Add(e7);
-            
+
             Exercicio e8 = new Exercicio("Pular corda", 30, 10, 60);
             exercicios.Add(e8);
 
@@ -731,6 +777,8 @@ namespace atividadeAv
             {
                 treino1.AssociarCliente(clientes[0], DateTime.Now, 30);
                 treino1.AssociarCliente(clientes[1], DateTime.Now, 30);
+                treino1.AssociarCliente(clientes[2], DateTime.Now, 30);
+                treino1.AssociarCliente(clientes[3], DateTime.Now, 30);
             }
             catch (InvalidOperationException ex)
             {
@@ -739,6 +787,10 @@ namespace atividadeAv
             // Avalia o treino pelo cliente associado
             treino1.AvaliarTreino(clientes[0], 9);
             treino1.AvaliarTreino(clientes[1], 8);
+            treino1.AvaliarTreino(clientes[2], 7);
+            treino1.AvaliarTreino(clientes[3], 8);
+            //Adiciona o treino1 a lista de treinos do treinador[0]
+            treinadores[0].AdicionarTreino(treino1);
 
             //Inclusao do Treino 2 e todo o vinculo
             Treino treino2 = new Treino("Cardio", "Emagrecimento", treinadores[1]);
@@ -771,10 +823,51 @@ namespace atividadeAv
             treino2.AvaliarTreino(clientes[3], 9);
             treino2.AvaliarTreino(clientes[4], 9);
 
+            //Adiciona o treino1 a lista de treinos do treinador[0]
+            treinadores[1].AdicionarTreino(treino2);
+
             // Adicione o treino à lista de treinos
             treinos.Add(treino2);
+            
+            //Inclusao do Treino 2 e todo o vinculo
+            Treino treino3 = new Treino("Meu Cardio", "Emagrecimento", treinadores[2]);
+
+
+            List<Exercicio> listaExerc3 = new List<Exercicio>();
+            listaExerc3.Add(exercicios[0]);
+            listaExerc3.Add(exercicios[1]);
+            listaExerc3.Add(exercicios[2]);
+            listaExerc3.Add(exercicios[3]);
+            listaExerc3.Add(exercicios[4]);
+
+            // Adiciona exercícios ao treino
+            AdicionaExercicioAoTreino(treino3, listaExerc3);
+
+            // Associa clientes ao treino
+            try
+            {
+                treino3.AssociarCliente(clientes[5], DateTime.Now, 30);
+                treino3.AssociarCliente(clientes[6], DateTime.Now, 30);
+                treino3.AssociarCliente(clientes[7], DateTime.Now, 30);
+
+            }
+            catch (InvalidOperationException ex)
+            {
+                Console.WriteLine($"Erro ao associar cliente: {ex.Message}");
+            }
+            // Avalia o treino pelo cliente associado
+            treino3.AvaliarTreino(clientes[5], 10);
+            treino3.AvaliarTreino(clientes[6], 9);
+            treino3.AvaliarTreino(clientes[7], 9);
+
+            //Adiciona o treino1 a lista de treinos do treinador[0]
+            treinadores[2].AdicionarTreino(treino3);
+
+            // Adicione o treino à lista de treinos
+            treinos.Add(treino3);
 
         }
+        #endregion
 
 
         //Relatório (1)
@@ -866,22 +959,11 @@ namespace atividadeAv
         //Relatório (7)
         public void RelatorioTreinosOrdemCrescenteQtdVencimento()
         {
-            Console.WriteLine("8. Treinos em ordem crescente pela quantidade de dias até o vencimento");
+            Console.WriteLine("7. Treinos em ordem crescente pela quantidade de dias até o vencimento");
             Console.WriteLine("--------------------------------------");
 
-            var treinosOrdenados = treinos
-                .OrderBy(treino =>
-                {
-                    var clienteTreino = treino.ClientesAssociados.FirstOrDefault();
-
-                    if (clienteTreino != null)
-                    {
-                        var diasRestantes = (clienteTreino.DataInicio.AddDays(clienteTreino.VencimentoDias) - DateTime.Now).Days;
-                        return diasRestantes;
-                    }
-
-                    return int.MaxValue;
-                });
+           var treinosOrdenados = treinos
+            .OrderBy(treino => treino.ClientesAssociados.Min(c => (c.VencimentoDias - (DateTime.Now - c.DataInicio).Days)));
 
             foreach (var treino in treinosOrdenados)
             {
@@ -895,39 +977,32 @@ namespace atividadeAv
 
             Console.WriteLine("");
         }
+        public void RelatorioTreinadoresOrdemDecrescente()
+        {
+            System.Console.WriteLine("8. Treinadores em ordem decrescente da média de notas dos seus treinos");
+            System.Console.WriteLine("--------------------------------------");
 
-        //Relatório (8) - REQUER CORREÇAO!!!
-        // public void RelatorioTreinadoresOrdemDecrescente()
-        // {
-        //     System.Console.WriteLine("7. Treinadores em ordem decrescente da média de notas dos seus treinos");
-        //     System.Console.WriteLine("--------------------------------------");
+            var treinadoresOrdenados = treinadores
+                .Select(treinador =>
+                {
+                    var treinos = treinador.Treinos;
+                    var mediaNotas = treinos.Any() ? treinos.Average(treino => treino.MediaNotas) : 0;
 
-        //     var treinadoresOrdenados = treinadores
-        //         .Select(treinador =>
-        //         {
-        //             var notas = treinador.ClientesAssociados
-        //                 .SelectMany(clienteTreino => clienteTreino.Treino.ClientesAvaliacao)
-        //                 .Where(avaliacao => avaliacao.Item1.TreinosAssociados.Any(ct => ct.Treino == clienteTreino.Treino))
-        //                 .Select(avaliacao => avaliacao.Item2);
+                    return new
+                    {
+                        Treinador = treinador,
+                        MediaNotas = mediaNotas
+                    };
+                })
+                .OrderByDescending(treinador => treinador.MediaNotas);
 
-        //             var media = notas.Any() ? notas.Average() : 0;
+            foreach (var item in treinadoresOrdenados)
+            {
+                Console.WriteLine($"Treinador: {item.Treinador.Nome}, Média de Notas: {item.MediaNotas}");
+            }
 
-        //             return new
-        //             {
-        //                 Treinador = treinador,
-        //                 MediaNotas = media
-        //             };
-        //         })
-        //     .OrderByDescending(treinador => treinador.MediaNotas);
-
-        //     foreach (var item in treinadoresOrdenados)
-        //     {
-        //         Console.WriteLine($"Treinador: {item.Treinador.Nome}, Média de Notas: {item.MediaNotas}");
-        //     }
-
-        //     Console.WriteLine("");
-        // }
-
+            Console.WriteLine("");
+        }
         //Relatório (9)
         public void RelatorioTreinosPorPalavraChave(string palavraChave)
         {

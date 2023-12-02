@@ -26,6 +26,7 @@ namespace atividadeAv
     }
     public class Treinador : Pessoa
     {
+        public List<Treino> Treinos { get; set; }
         private string _cpf;
         public string CPF { 
             get { return _cpf; }
@@ -40,6 +41,14 @@ namespace atividadeAv
             }
         }
         public string CREF { get; set; }
+        public Treinador(){
+            Treinos = new List<Treino>();
+            _cpf="";
+            CREF="";
+        }
+        public void AdicionarTreino(Treino treino){
+            Treinos.Add(treino);
+        }
     }
     public class Cliente : Pessoa
     {   
@@ -47,6 +56,12 @@ namespace atividadeAv
         private string _cpf;
         private double _altura;
         private double _peso;
+        public Cliente(){
+            TreinosAssociados = new List<ClienteTreino> ();
+            _cpf = "";
+            _altura = 0.0;
+            _peso = 0.0;
+        }
         public string CPF { 
             get { return _cpf; }
             set { 
@@ -81,10 +96,5 @@ namespace atividadeAv
                 _peso = value;   
             }
         }
-        
-        public Cliente(){
-            TreinosAssociados = new List<ClienteTreino>();
-        }
-        
     }
 }

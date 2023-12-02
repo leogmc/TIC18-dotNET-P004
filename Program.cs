@@ -170,7 +170,8 @@ namespace atividadeAv
                         break;
 
                     case "8":
-                        //add later
+                        //academia.RelatorioTreinadoresOrdemDecrescente();
+                        academia.RelatorioTreinadoresOrdemDecrescente();
                         break;
 
                     case "9":

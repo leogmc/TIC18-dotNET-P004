@@ -88,5 +88,21 @@ namespace atividadeAv
                 Console.WriteLine($"{cliente.Nome} não está associado a este treino.");
             }
         }
+        public double MediaNotas
+        {
+            get
+            {
+                if (ClientesAvaliacao.Any())
+                {
+                    return ClientesAvaliacao.Average(avaliacao => avaliacao.Item2);
+                }
+                return 0;
+            }
+        }
+        private static int CalcularDiasAteVencimento(Treino treino)
+        {
+            var menorVencimento = treino.ClientesAssociados.Min(c => (c.VencimentoDias - (DateTime.Now - c.DataInicio).Days));
+            return menorVencimento < 0 ? 0 : menorVencimento;
+        }
     }
 }
