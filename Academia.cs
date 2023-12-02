@@ -20,7 +20,20 @@ namespace atividadeAv
             treinos = new List<Treino>();
             exercicios = new List<Exercicio>();
         }
+        static DateTime ObterDataNascimento()
+        {
+            Console.Write("Digite sua data de nascimento (DD/MM/YYYY): ");
+            string dataNascimentoInput = Console.ReadLine();
 
+            if (DateTime.TryParseExact(dataNascimentoInput, "dd/MM/yyyy", null, DateTimeStyles.None, out DateTime dataNascimento))
+            {
+                return dataNascimento;
+            }
+            else
+            {
+                throw new FormatException("Formato de data inválido. Use o formato DD/MM/YYYY.");
+            }
+        }
         public void AdicionaTreinadores()
         {
             Console.WriteLine("==== Adicionar Treinador ====");
@@ -40,6 +53,11 @@ namespace atividadeAv
                 return;
             }
 
+            if (SeTreinadorExisteCPF(cpf))
+            {
+                Console.WriteLine($"Existe Treinador com o CPF: {cpf}.");
+                return;
+            }
             Console.Write("CREF: ");
             string cref = Console.ReadLine();
             if (String.IsNullOrEmpty(cref))
@@ -47,49 +65,38 @@ namespace atividadeAv
                 System.Console.WriteLine("O campo CREF não pode ser vazio.");
                 return;
             }
-
-            if (SeTreinadorExiste(cpf, cref))
+            if (SeTreinadorExisteCREF(cref))
             {
-                Console.WriteLine("Treinador existente. Tente novamente.");
+                Console.WriteLine($"Existe Treinador com o CREF: {cref}.");
                 return;
             }
 
-            Console.Write("Ano de nascimento: ");
-            int ano;
-            if (!int.TryParse(Console.ReadLine(), out ano))
-            {
-                throw new FormatException("Digite um valor numérico inteiro para o ano.");
-            }
-            Console.Write("Mês de nascimento: ");
-            int mes;
-            if (!int.TryParse(Console.ReadLine(), out mes))
-            {
-                throw new FormatException("Digite um valor numérico inteiro para o mês.");
-            }
-            Console.Write("Dia de nascimento: ");
-            int dia;
-            if (!int.TryParse(Console.ReadLine(), out dia))
-            {
-                throw new FormatException("Digite um valor numérico inteiro para o dia.");
-            }
+            //Vai ser utilizado no do-while para pegar uma data valida
+            bool entradaValida;
 
-            // Validar o DateTime que vai ser criado
-            DateTime dataNascimento;
-            string dataString = $"{ano}-{mes:D2}-{dia:D2}";
-            if (!DateTime.TryParseExact(dataString, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out dataNascimento))
+            do
             {
-                throw new FormatException("Data de nascimento inválida.");
-            }
+                try
+                {
+                    DateTime dataNascimento = ObterDataNascimento();
 
-            // Criar treinador como um novo objeto
-            Treinador novoTreinador = new Treinador();
-            novoTreinador.CPF = cpf;
-            novoTreinador.CREF = cref;
-            novoTreinador.DtNascimento = dataNascimento;
-            novoTreinador.Nome = nome;
+                    entradaValida = true;
+                    // Criar treinador como um novo objeto
+                    Treinador novoTreinador = new Treinador();
+                    novoTreinador.CPF = cpf;
+                    novoTreinador.CREF = cref;
+                    novoTreinador.DtNascimento = dataNascimento;
+                    novoTreinador.Nome = nome;
 
-            treinadores.Add(novoTreinador);
-            Console.WriteLine("Treinador adicionado com sucesso!");
+                    treinadores.Add(novoTreinador);
+                    Console.WriteLine("Treinador adicionado com sucesso!");
+                }
+                catch (FormatException ex)
+                {
+                    Console.WriteLine($"Erro de formato: {ex.Message}");
+                    entradaValida = false; // Se ocorreu uma exceção, a entrada não é válida
+                }
+            } while (!entradaValida);
         }
         public void ExecutarTreino()
         {
@@ -129,11 +136,22 @@ namespace atividadeAv
             }
         }
         // Verificar se treinador já está na lista pelo CPF ou pelo CREF
-        public bool SeTreinadorExiste(string cpf, string cref)
+        public bool SeTreinadorExisteCPF(string cpf)
         {
             foreach (var treinador in treinadores)
             {
-                if (treinador.CPF == cpf || treinador.CREF == cref)
+                if (treinador.CPF == cpf)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        public bool SeTreinadorExisteCREF(string cref)
+        {
+            foreach (var treinador in treinadores)
+            {
+                if (treinador.CREF == cref)
                 {
                     return true;
                 }
@@ -145,7 +163,7 @@ namespace atividadeAv
             Console.WriteLine("==== Adicionar Cliente ====");
             Console.Write("Nome: ");
             string nome = Console.ReadLine();
-              if (String.IsNullOrEmpty(nome))
+            if (String.IsNullOrEmpty(nome))
             {
                 System.Console.WriteLine("O campo nome não pode ser vazio.");
                 return;
@@ -179,43 +197,36 @@ namespace atividadeAv
                 throw new FormatException("Digite um valor numérico para o peso.");
             }
 
-            Console.Write("Ano de nascimento: ");
-            int ano;
-            if (!int.TryParse(Console.ReadLine(), out ano))
-            {
-                throw new FormatException("Digite um valor numérico inteiro para o ano.");
-            }
-            Console.Write("Mês de nascimento: ");
-            int mes;
-            if (!int.TryParse(Console.ReadLine(), out mes))
-            {
-                throw new FormatException("Digite um valor numérico inteiro para o mês.");
-            }
-            Console.Write("Dia de nascimento: ");
-            int dia;
-            if (!int.TryParse(Console.ReadLine(), out dia))
-            {
-                throw new FormatException("Digite um valor numérico inteiro para o dia.");
-            }
 
-            // Validar o DateTime que vai ser criado
-            DateTime dataNascimento;
-            string dataString = $"{ano}-{mes:D2}-{dia:D2}";
-            if (!DateTime.TryParseExact(dataString, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out dataNascimento))
+            //Vai ser utilizado no do-while para pegar uma data valida
+            bool entradaValida;
+
+            do
             {
-                throw new FormatException("Data de nascimento inválida.");
-            }
+                try
+                {
+                    DateTime dataNascimento = ObterDataNascimento();
 
-            // Criar cliente como um novo objeto
-            Cliente novoCliente = new Cliente();
-            novoCliente.CPF = cpf;
-            novoCliente.DtNascimento = dataNascimento;
-            novoCliente.Altura = altura;
-            novoCliente.Peso = peso;
-            novoCliente.Nome = nome;
+                    entradaValida = true;
 
-            clientes.Add(novoCliente);
-            Console.WriteLine("Cliente adicionado com sucesso!");
+                    // Criar cliente como um novo objeto
+                    Cliente novoCliente = new Cliente();
+                    novoCliente.CPF = cpf;
+                    novoCliente.DtNascimento = dataNascimento;
+                    novoCliente.Altura = altura;
+                    novoCliente.Peso = peso;
+                    novoCliente.Nome = nome;
+
+                    clientes.Add(novoCliente);
+                    Console.WriteLine("Cliente adicionado com sucesso!");
+                }
+                catch (FormatException ex)
+                {
+                    Console.WriteLine($"Erro de formato: {ex.Message}");
+                    entradaValida = false; // Se ocorreu uma exceção, a entrada não é válida
+                }
+            } while (!entradaValida);
+
         }
         public bool SeClienteExiste(string cpf)
         {
@@ -228,7 +239,7 @@ namespace atividadeAv
             }
             return false;
         }
-        public Exercicio CriarExercicio()
+        public void CriarExercicio()
         {
 
             Console.WriteLine("==== Criar Exercício ====");
@@ -259,41 +270,66 @@ namespace atividadeAv
 
             var novoExercicio = new Exercicio(grupoMuscular, series, repeticoes, tempoIntervaloSegundos);
             Console.WriteLine("Exercício criado com sucesso.");
+            exercicios.Add(novoExercicio);
+            
+        }
+        public Exercicio CriarERetornaExercicio()
+        {
 
-            Console.WriteLine("Treino criado com sucesso!");
+            Console.WriteLine("==== Criar Exercício ====");
 
-            //Incluindo alguns exercicios
-            //GrupoMuscular, Series, Repeticoes, TempoIntervaloSegundos
-            Exercicio e1 = new Exercicio("Peito", 15, 4, 30);
-            exercicios.Add(e1);
+            Console.Write("Grupo muscular: ");
+            string grupoMuscular = Console.ReadLine();
 
-            Exercicio e2 = new Exercicio("Costas", 12, 8, 45);
-            exercicios.Add(e2);
+            Console.Write("Séries: ");
+            int series;
+            if (!int.TryParse(Console.ReadLine(), out series))
+            {
+                throw new FormatException("Séries deve ser um número inteiro.");
+            }
 
-            Exercicio e3 = new Exercicio("Pernas", 20, 5, 60);
-            exercicios.Add(e3);
+            Console.Write("Repetições: ");
+            int repeticoes;
+            if (!int.TryParse(Console.ReadLine(), out repeticoes))
+            {
+                throw new FormatException("Repetições deve ser um número inteiro.");
+            }
 
-            Exercicio e4 = new Exercicio("Ombros", 18, 6, 40);
-            exercicios.Add(e4);
+            Console.Write("Tempo de intervalo em segundos: ");
+            int tempoIntervaloSegundos;
+            if (!int.TryParse(Console.ReadLine(), out tempoIntervaloSegundos))
+            {
+                throw new FormatException("Tempo de intervalo em segundos deve ser um número inteiro.");
+            }
 
-            Exercicio e5 = new Exercicio("Bíceps", 15, 10, 30);
-            exercicios.Add(e5);
-
-            Exercicio e6 = new Exercicio("Tríceps", 16, 8, 45);
-            exercicios.Add(e6);
-
-            Exercicio e7 = new Exercicio("Abdominais", 25, 15, 30);
-            exercicios.Add(e7);
-
-            Exercicio e8 = new Exercicio("Pular corda", 30, 10, 60);
-            exercicios.Add(e8);
-
-            Exercicio e9 = new Exercicio("Glúteos", 15, 15, 45);
-            exercicios.Add(e9);
-
-
+            var novoExercicio = new Exercicio(grupoMuscular, series, repeticoes, tempoIntervaloSegundos);
+            Console.WriteLine("Exercício criado com sucesso.");
+            exercicios.Add(novoExercicio);
             return novoExercicio;
 
+        }
+        public Exercicio SelecionarExercicioExistente()
+        {
+            Console.WriteLine("==== Selecionar Exercício Existente ====");
+            Console.WriteLine("Lista de Exercícios Disponíveis:");
+
+            for (int i = 0; i < exercicios.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {exercicios[i].GrupoMuscular}");
+            }
+
+            Console.Write("Digite o número do exercício desejado: ");
+            int escolha = Convert.ToInt32(Console.ReadLine()) - 1;
+
+            if (escolha >= 0 && escolha < exercicios.Count)
+            {
+                return exercicios[escolha];
+            }
+            else
+            {
+                Console.WriteLine("Opção inválida. Exercício não encontrado.");
+                return null;
+            }
         }
 
         public void MontarTreino()
@@ -310,23 +346,36 @@ namespace atividadeAv
             Treino novoTreino = new Treino(tipoTreino, objetivoTreino, treinador);
 
             Console.WriteLine("==== Adicionar Exercícios ao Treino ====");
+            string opcao;
 
-            Console.WriteLine("Pressione 'S' para adicionar exercícios ao treino ou qualquer outra tecla para cancelar.");
-            string adicionarExercicio = Console.ReadLine();
-
-            while (adicionarExercicio.ToUpper() == "S")
+            do
             {
-                Exercicio novoExercicio = CriarExercicio();
-                novoTreino.AdicionarExercicio(novoExercicio);
+                Console.WriteLine("Pressione 'N' para criar um novo exercício, 'E' para selecionar um exercício existente ou qualquer outra tecla para cancelar.");
+                opcao = Console.ReadLine();
 
-                Console.WriteLine("Exercício adicionado ao treino.");
+                Exercicio novoExercicio;
 
-                Console.WriteLine("Pressione 'S' para adicionar mais exercícios ou qualquer outra tecla para sair.");
-                adicionarExercicio = Console.ReadLine();
+                if (opcao.ToUpper() == "N")
+                {
+                    novoExercicio = CriarERetornaExercicio();
+                }
+                else if (opcao.ToUpper() == "E")
+                {
+                    novoExercicio = SelecionarExercicioExistente();
+                }
+                else
+                {
+                    break; // Sai do loop se a opção for diferente de 'N' ou 'E'
+                }
 
-                treinos.Add(novoTreino);
+                if (novoExercicio != null)
+                {
+                    novoTreino.AdicionarExercicio(novoExercicio);
+                    Console.WriteLine("Exercício adicionado ao treino.");
+                }
+            } while (opcao.ToUpper() == "N" || opcao.ToUpper() == "E");
 
-            }
+            treinos.Add(novoTreino);
 
         }
         public void AdicionaExercicioAoTreino(Treino treino, List<Exercicio> listaExerciciosEscolhidos)

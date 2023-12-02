@@ -11,13 +11,13 @@ namespace atividadeAv
             Academia academia = new Academia();
             RunMenu(academia);
         
-            academia.RelatorioTreinadoresIntevaloIdades(40, 60);
-            academia.RelatorioClientesIntevaloIdades(23, 50);
-            academia.RelatorioClientesIMCMaior(21);
-            academia.RelatorioClientesOrdemAlfabetica();
-            academia.RelatorioClientesOrdemIdade();
-            academia.RelatorioAniversariantesDoMes(10);
-            academia.RelatorioTreinosOrdemCrescenteQtdVencimento();
+            // academia.RelatorioTreinadoresIntevaloIdades(40, 60);
+            // academia.RelatorioClientesIntevaloIdades(23, 50);
+            // academia.RelatorioClientesIMCMaior(21);
+            // academia.RelatorioClientesOrdemAlfabetica();
+            // academia.RelatorioClientesOrdemIdade();
+            // academia.RelatorioAniversariantesDoMes(10);
+            // academia.RelatorioTreinosOrdemCrescenteQtdVencimento();
            // academia.RelatorioTreinadoresOrdemDecrescente();
         
         }
@@ -30,10 +30,11 @@ namespace atividadeAv
                 Console.WriteLine("==== Menu ====");
                 Console.WriteLine("1. Adicionar Treinador");
                 Console.WriteLine("2. Adicionar Cliente");
-                Console.WriteLine("3. Montar Treino");
-                Console.WriteLine("4. Executar Treino");
-                Console.WriteLine("5. Avaliar Treino");
-                Console.WriteLine("6. Menu de Relatórios");
+                Console.WriteLine("3. Criar Exercicio");
+                Console.WriteLine("4. Montar Treino");
+                Console.WriteLine("5. Executar Treino");
+                Console.WriteLine("6. Avaliar Treino");
+                Console.WriteLine("7. Menu de Relatórios");
                 Console.WriteLine("0. Sair");
                 Console.WriteLine("=============");
 
@@ -50,15 +51,18 @@ namespace atividadeAv
                             academia.AdicionaCliente();
                             break;
                         case "3":
-                            academia.MontarTreino();
+                            academia.CriarExercicio();
                             break;
                         case "4":
-                            academia.ExecutarTreino();
+                            academia.MontarTreino();
                             break;
                         case "5":
-                            academia.AvaliarTreino();
+                            academia.ExecutarTreino();
                             break;
                         case "6":
+                            academia.AvaliarTreino();
+                            break;
+                        case "7":
                             runMenuDeRelatorios(academia);
                             break;
                         case "0":
