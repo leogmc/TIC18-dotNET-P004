@@ -44,7 +44,6 @@ namespace atividadeAv
     public class Cliente : Pessoa{
         
         public List<ClienteTreino> TreinosAssociados { get; set; }
-
         private string _cpf;
         private double _altura;
         private double _peso;
@@ -83,6 +82,7 @@ namespace atividadeAv
                 _peso = value;   
             }
         }
+        
         public Cliente(){
             TreinosAssociados = new List<ClienteTreino>();
         }
