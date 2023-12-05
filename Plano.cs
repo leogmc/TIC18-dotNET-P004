@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace TIC18_dotNET_P004
+namespace atividadeAv
 {
     public class Plano
     {
