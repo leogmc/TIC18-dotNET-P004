@@ -10,37 +10,44 @@ namespace atividadeAv
         public string Descricao { get; set; }
         public double ValorBruto { get; set; }
         public double Desconto { get; set; } = 0;
-        public DateTime dateTime { get; set; } = DateTime.Now;
+        public DateTime DateTime { get; set; } = DateTime.Now;
 
         public void RealizarPagamento(double valor)
         {
-            
-        }
-
-    }
-
-    public class CartaoDeCredito : Pagamento 
-    {
-        public string NumCartao { get; set;}
-
-        public void RealizarPagamento(double valor) {
-            
+            // Implementação específica do pagamento
+            Console.WriteLine($"Realizando pagamento no valor de {valor}");
         }
     }
 
-    public class TransfarenciaPix : Pagamento 
+    public class CartaoDeCredito : Pagamento
     {
-        public string Chave { get; set;}
+        public string NumCartao { get; set; }
 
-        public void RealizarPagamento(double valor) {
-            
+        public new void RealizarPagamento(double valor)
+        {
+            Console.WriteLine("Numero do cartão: ");
+            NumCartao = Console.ReadLine();
+
+            Console.WriteLine($"O valor de {valor} foi pago com cartão de crédito.");
+        }
+    }
+
+    public class TransfarenciaPix : Pagamento
+    {
+        public new void RealizarPagamento(double valor)
+        {
+            Console.WriteLine("Chave Pix: ");
+            string chavePix = Console.ReadLine();
+
+            Console.WriteLine($"O valor de {valor} foi pago com Pix: {chavePix}");
         }
     }
 
     public class EmDinheiro : Pagamento
     {
-        public void RealizarPagamento(double valor) {
-            
+        public new void RealizarPagamento(double valor)
+        {
+            Console.WriteLine($"O valor de {valor} foi pago em dinheiro.");
         }
     }
 }
