@@ -25,8 +25,8 @@ namespace atividadeAv
 
         public new void RealizarPagamento(Cliente cliente, double valor)
         {
-            Console.WriteLine("Numero do cartão: ");
-            NumCartao = Console.ReadLine();
+            // Console.WriteLine("Numero do cartão: ");
+            // NumCartao = Console.ReadLine();
 
             Console.WriteLine($"O valor de {valor} foi pago com cartão de crédito por {cliente.Nome}.");
         }
@@ -38,10 +38,10 @@ namespace atividadeAv
 
         public new void RealizarPagamento(Cliente cliente, double valor)
         {
-            Console.WriteLine("Chave Pix: ");
-            string chavePix = Console.ReadLine();
+            // Console.WriteLine("Chave Pix: ");
+            // string chavePix = Console.ReadLine();
 
-            Console.WriteLine($"O valor de {valor} foi pago por {cliente.Nome} com Pix: {chavePix}");
+            Console.WriteLine($"O valor de {valor} foi pago por {cliente.Nome} com Pix");
         }
     }
 

@@ -70,6 +70,7 @@ namespace atividadeAv
         public Cliente()
         {
             TreinosAssociados = new List<ClienteTreino>();
+            pagamentos = new List<IPagavel>();
             _cpf = "";
             _altura = 0.0;
             _peso = 0.0;
