@@ -66,6 +66,8 @@ namespace atividadeAv
         private string _cpf;
         private double _altura;
         private double _peso;
+        public Plano plano {get; set;}
+        
         public Cliente()
         {
             TreinosAssociados = new List<ClienteTreino>();
@@ -113,10 +115,6 @@ namespace atividadeAv
                 }
                 _peso = value;
             }
-        }
-        public void aderirPlano()
-        {
-
         }
         public void efetuarPagamento()
         {

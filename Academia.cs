@@ -28,6 +28,7 @@ namespace atividadeAv
             exercicios = new List<Exercicio>();
             planos = new List<Plano>();
         }
+
         static DateTime ObterDataNascimento()
         {
             Console.Write("Digite sua data de nascimento (DD/MM/YYYY): ");
@@ -579,6 +580,7 @@ namespace atividadeAv
                 t1.CPF = "12345678901";
                 t1.Altura = 1.66;
                 t1.Peso = 72.9;
+                t1.plano = planos[0];
                 foreach (var cliente in clientes)
                 {
                     if (cliente.CPF == t1.CPF)
@@ -600,6 +602,7 @@ namespace atividadeAv
                 t2.CPF = "02345678901";
                 t2.Altura = 1.88;
                 t2.Peso = 80;
+                t2.plano = planos[1];
                 foreach (var cliente in clientes)
                 {
                     if (cliente.CPF == t2.CPF)
@@ -622,6 +625,7 @@ namespace atividadeAv
                 t3.CPF = "02145678901";
                 t3.Altura = 1.50;
                 t3.Peso = 55;
+                t3.plano = planos[1];
                 foreach (var cliente in clientes)
                 {
                     if (cliente.CPF == t3.CPF)
@@ -645,6 +649,8 @@ namespace atividadeAv
                 t4.CPF = "02015678901";
                 t4.Altura = 1.67;
                 t4.Peso = 99;
+
+                t4.plano = planos[2];
                 foreach (var cliente in clientes)
                 {
                     if (cliente.CPF == t4.CPF)
@@ -668,6 +674,7 @@ namespace atividadeAv
                 t5.CPF = "02015678991";
                 t5.Altura = 1.99;
                 t5.Peso = 78;
+                t5.plano = planos[2];
                 foreach (var cliente in clientes)
                 {
                     if (cliente.CPF == t5.CPF)
@@ -691,6 +698,7 @@ namespace atividadeAv
                 t6.CPF = "02015676901";
                 t6.Altura = 1.97;
                 t6.Peso = 79;
+                t6.plano = planos[0];
                 foreach (var cliente in clientes)
                 {
                     if (cliente.CPF == t6.CPF)
@@ -712,6 +720,7 @@ namespace atividadeAv
                 t.CPF = "02015676991";
                 t.Altura = 1.68;
                 t.Peso = 79;
+                t.plano = planos[0];
                 foreach (var cliente in clientes)
                 {
                     if (cliente.CPF == t.CPF)
@@ -732,6 +741,7 @@ namespace atividadeAv
                 t.CPF = "02015996901";
                 t.Altura = 1.50;
                 t.Peso = 80;
+                t.plano = planos[0];
                 foreach (var cliente in clientes)
                 {
                     if (cliente.CPF == t.CPF)
