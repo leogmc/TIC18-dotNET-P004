@@ -34,6 +34,8 @@ namespace atividadeAv
 
     public class TransfarenciaPix : Pagamento
     {
+        public String Chave { get; set; }
+
         public new void RealizarPagamento(double valor)
         {
             Console.WriteLine("Chave Pix: ");
