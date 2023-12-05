@@ -20,6 +20,14 @@ namespace atividadeAv
             planos.Add(plano);
         }
 
+          public void efetuarPagamento(Cliente cliente, IPagavel pagamento){
+
+            cliente.pagamentos.Add(pagamento);
+          }
+        
+        
+
+        
         public Academia()
         {
             treinadores = new List<Treinador>(); //Academia.AdicionaTreinadores();
@@ -456,6 +464,27 @@ namespace atividadeAv
 
         }
         #region Inclusao de alguns dados
+
+        public void AdicionaAlgunsPagamentos(){
+            TransfarenciaPix transfarenciaPix = new TransfarenciaPix();
+            transfarenciaPix.Chave ="0023233";
+            transfarenciaPix.dateTime = DateTime.Now;
+            transfarenciaPix.RealizarPagamento(clientes[0].plano.Valor);
+            
+            efetuarPagamento(clientes[0], transfarenciaPix);
+
+            CartaoDeCredito cartaoDeCredito = new CartaoDeCredito();
+            cartaoDeCredito.NumCartao = "1234567812345678";
+            cartaoDeCredito.dateTime = DateTime.Now;
+            cartaoDeCredito.RealizarPagamento(clientes[1].plano.Valor);
+            efetuarPagamento(clientes[1], cartaoDeCredito);
+
+            EmDinheiro emDinheiro = new EmDinheiro();
+            emDinheiro.dateTime = DateTime.Now;
+            emDinheiro.RealizarPagamento(clientes[2].plano.Valor);
+            efetuarPagamento(clientes[2], emDinheiro);
+            
+        }
         public void AdicionAlgunsPlanos()
         {
             Plano p1 = new Plano("Basic", 120.00);

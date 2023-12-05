@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Win32.SafeHandles;
-using TIC18_dotNET_P004;
 
 namespace atividadeAv
 {
@@ -62,7 +61,7 @@ namespace atividadeAv
     public class Cliente : Pessoa
     {
         public List<ClienteTreino> TreinosAssociados { get; set; }
-        public List<Pagamento> pagamentos { get; set; }
+        public List<IPagavel> pagamentos { get; set; }
         private string _cpf;
         private double _altura;
         private double _peso;
@@ -116,9 +115,6 @@ namespace atividadeAv
                 _peso = value;
             }
         }
-        public void efetuarPagamento()
-        {
-
-        }
+     
     }
 }
