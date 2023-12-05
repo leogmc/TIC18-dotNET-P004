@@ -10,37 +10,46 @@ namespace atividadeAv
         public string Descricao { get; set; }
         public double ValorBruto { get; set; }
         public double Desconto { get; set; } = 0;
-        public DateTime dateTime { get; set; } = DateTime.Now;
+        public DateTime DateTime { get; set; } = DateTime.Now;
 
-        public void RealizarPagamento(double valor)
+        public void RealizarPagamento(Cliente cliente, double valor)
         {
-            
-        }
-
-    }
-
-    public class CartaoDeCredito : Pagamento 
-    {
-        public string NumCartao { get; set;}
-
-        public void RealizarPagamento(double valor) {
-            
+            // Implementação específica do pagamento
+            Console.WriteLine($"{cliente.Nome} está efetuando o pagamento no valor de {valor}");
         }
     }
 
-    public class TransfarenciaPix : Pagamento 
+    public class CartaoDeCredito : Pagamento
     {
-        public string Chave { get; set;}
+        public string NumCartao { get; set; }
 
-        public void RealizarPagamento(double valor) {
-            
+        public new void RealizarPagamento(Cliente cliente, double valor)
+        {
+            Console.WriteLine("Numero do cartão: ");
+            NumCartao = Console.ReadLine();
+
+            Console.WriteLine($"O valor de {valor} foi pago com cartão de crédito por {cliente.Nome}.");
+        }
+    }
+
+    public class TransfarenciaPix : Pagamento
+    {
+        public String Chave { get; set; }
+
+        public new void RealizarPagamento(Cliente cliente, double valor)
+        {
+            Console.WriteLine("Chave Pix: ");
+            string chavePix = Console.ReadLine();
+
+            Console.WriteLine($"O valor de {valor} foi pago por {cliente.Nome} com Pix: {chavePix}");
         }
     }
 
     public class EmDinheiro : Pagamento
     {
-        public void RealizarPagamento(double valor) {
-            
+        public new void RealizarPagamento(Cliente cliente, double valor)
+        {
+            Console.WriteLine($"O valor de {valor} foi pago em dinheiro por {cliente.Nome}.");
         }
     }
 }
