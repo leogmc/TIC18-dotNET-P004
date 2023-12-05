@@ -6,6 +6,7 @@ using System.Globalization;
 
 namespace atividadeAv
 {
+    
     public class Academia
     {
         List<Treinador> treinadores;
