@@ -12,10 +12,10 @@ namespace atividadeAv
         public double Desconto { get; set; } = 0;
         public DateTime DateTime { get; set; } = DateTime.Now;
 
-        public void RealizarPagamento(double valor)
+        public void RealizarPagamento(Cliente cliente, double valor)
         {
             // Implementação específica do pagamento
-            Console.WriteLine($"Realizando pagamento no valor de {valor}");
+            Console.WriteLine($"{cliente.Nome} está efetuando o pagamento no valor de {valor}");
         }
     }
 
@@ -23,12 +23,12 @@ namespace atividadeAv
     {
         public string NumCartao { get; set; }
 
-        public new void RealizarPagamento(double valor)
+        public new void RealizarPagamento(Cliente cliente, double valor)
         {
             Console.WriteLine("Numero do cartão: ");
             NumCartao = Console.ReadLine();
 
-            Console.WriteLine($"O valor de {valor} foi pago com cartão de crédito.");
+            Console.WriteLine($"O valor de {valor} foi pago com cartão de crédito por {cliente.Nome}.");
         }
     }
 
@@ -36,20 +36,20 @@ namespace atividadeAv
     {
         public String Chave { get; set; }
 
-        public new void RealizarPagamento(double valor)
+        public new void RealizarPagamento(Cliente cliente, double valor)
         {
             Console.WriteLine("Chave Pix: ");
             string chavePix = Console.ReadLine();
 
-            Console.WriteLine($"O valor de {valor} foi pago com Pix: {chavePix}");
+            Console.WriteLine($"O valor de {valor} foi pago por {cliente.Nome} com Pix: {chavePix}");
         }
     }
 
     public class EmDinheiro : Pagamento
     {
-        public new void RealizarPagamento(double valor)
+        public new void RealizarPagamento(Cliente cliente, double valor)
         {
-            Console.WriteLine($"O valor de {valor} foi pago em dinheiro.");
+            Console.WriteLine($"O valor de {valor} foi pago em dinheiro por {cliente.Nome}.");
         }
     }
 }
