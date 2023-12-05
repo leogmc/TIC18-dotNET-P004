@@ -10,7 +10,7 @@ namespace atividadeAv
         {
             Academia academia = new Academia();
             RunMenu(academia);
-        
+
             // academia.RelatorioTreinadoresIntevaloIdades(40, 60);
             // academia.RelatorioClientesIntevaloIdades(23, 50);
             // academia.RelatorioClientesIMCMaior(21);
@@ -18,8 +18,8 @@ namespace atividadeAv
             // academia.RelatorioClientesOrdemIdade();
             // academia.RelatorioAniversariantesDoMes(10);
             // academia.RelatorioTreinosOrdemCrescenteQtdVencimento();
-           // academia.RelatorioTreinadoresOrdemDecrescente();
-        
+            // academia.RelatorioTreinadoresOrdemDecrescente();
+
         }
 
         public static void RunMenu(Academia academia)
@@ -45,8 +45,9 @@ namespace atividadeAv
                 {
                     switch (choice)
                     {
-                        
+
                         case "1":
+                            academia.AdicionAlgunsPlanos();
                             academia.AdicionaAlgunsClientes();
                             academia.AdicionaAlgunsTreinadores();
                             academia.AdicionaAlgunsExercicios();
@@ -81,7 +82,7 @@ namespace atividadeAv
                             break;
                     }
                 }
-                catch (Exception e) 
+                catch (Exception e)
                 {
                     Console.WriteLine("Erro: " + e.Message);
                 }
@@ -89,7 +90,7 @@ namespace atividadeAv
             } while (choice != "0");
         }
 
-    public static void runMenuDeRelatorios(Academia academia)
+        public static void runMenuDeRelatorios(Academia academia)
         {
             string choice;
             do
@@ -162,7 +163,7 @@ namespace atividadeAv
                         int mes;
                         if (!int.TryParse(Console.ReadLine(), out mes))
                             throw new FormatException("Mês deve ser um número inteiro.");
-                            academia.RelatorioAniversariantesDoMes(mes);
+                        academia.RelatorioAniversariantesDoMes(mes);
                         break;
 
                     case "7":
@@ -184,7 +185,7 @@ namespace atividadeAv
                     case "10":
                         academia.RelatorioTop10ExerciciosMaisUtilizados();
                         break;
-   
+
                     case "0":
                         Console.WriteLine("Voltando para o menu principal...");
                         return;
@@ -197,7 +198,7 @@ namespace atividadeAv
         }
 
     }
-  
+
 }
 
 

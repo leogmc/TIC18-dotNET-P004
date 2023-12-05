@@ -6,7 +6,7 @@ using System.Globalization;
 
 namespace atividadeAv
 {
-    
+
     public class Academia
     {
         List<Treinador> treinadores;
@@ -15,7 +15,8 @@ namespace atividadeAv
         List<Exercicio> exercicios;
         List<Plano> planos;
 
-        public void IncluirPlano(Plano plano){
+        public void IncluirPlano(Plano plano)
+        {
             planos.Add(plano);
         }
 
@@ -453,8 +454,16 @@ namespace atividadeAv
             throw new ArgumentException("Treinador não encontrado.");
 
         }
-        #region INclusao de alguns dados
-
+        #region Inclusao de alguns dados
+        public void AdicionAlgunsPlanos()
+        {
+            Plano p1 = new Plano("Basic", 120.00);
+            Plano p2 = new Plano("Gold", 190.00);
+            Plano p3 = new Plano("Premium", 320.00);
+            IncluirPlano(p1);
+            IncluirPlano(p2);
+            IncluirPlano(p3);
+        }
         public void AdicionaAlgunsTreinadores()
         {
             try
@@ -693,7 +702,7 @@ namespace atividadeAv
             }
             catch (System.ArgumentException ex1) { System.Console.WriteLine($"Erro no argumento {ex1.Message}"); }
             catch (System.Exception ex) { System.Console.WriteLine($"Nao foi possivel incluir cliente {ex.Message}"); }
-            
+
             try
             {
                 //Cliente 7
@@ -835,7 +844,7 @@ namespace atividadeAv
 
             // Adicione o treino à lista de treinos
             treinos.Add(treino2);
-            
+
             //Inclusao do Treino 2 e todo o vinculo
             Treino treino3 = new Treino("Meu Cardio", "Emagrecimento", treinadores[2]);
 
@@ -969,8 +978,8 @@ namespace atividadeAv
             Console.WriteLine("7. Treinos em ordem crescente pela quantidade de dias até o vencimento");
             Console.WriteLine("--------------------------------------");
 
-           var treinosOrdenados = treinos
-            .OrderBy(treino => treino.ClientesAssociados.Min(c => (c.VencimentoDias - (DateTime.Now - c.DataInicio).Days)));
+            var treinosOrdenados = treinos
+             .OrderBy(treino => treino.ClientesAssociados.Min(c => (c.VencimentoDias - (DateTime.Now - c.DataInicio).Days)));
 
             foreach (var treino in treinosOrdenados)
             {
