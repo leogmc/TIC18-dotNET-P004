@@ -6,6 +6,7 @@ using System.Globalization;
 
 namespace atividadeAv
 {
+    
     public class Academia
     {
         List<Treinador> treinadores;
@@ -14,12 +15,17 @@ namespace atividadeAv
         List<Exercicio> exercicios;
         List<Plano> planos;
 
+        public void IncluirPlano(Plano plano){
+            planos.Add(plano);
+        }
+
         public Academia()
         {
             treinadores = new List<Treinador>(); //Academia.AdicionaTreinadores();
             clientes = new List<Cliente>(); //Academia.AdicionaCliente();
             treinos = new List<Treino>();
             exercicios = new List<Exercicio>();
+            planos = new List<Plano>();
         }
         static DateTime ObterDataNascimento()
         {
