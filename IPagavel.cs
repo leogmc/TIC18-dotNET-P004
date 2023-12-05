@@ -7,6 +7,6 @@ namespace atividadeAv
 {
     public interface IPagavel
     {
-        void RealizarPagamento(double valor);
+        void RealizarPagamento(Cliente cliente, double valor);
     }
 }
