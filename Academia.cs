@@ -12,6 +12,7 @@ namespace atividadeAv
         List<Cliente> clientes;
         List<Treino> treinos;
         List<Exercicio> exercicios;
+        List<Plano> planos;
 
         public Academia()
         {
