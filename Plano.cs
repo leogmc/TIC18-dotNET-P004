@@ -7,14 +7,15 @@ namespace atividadeAv
 {
     public class Plano
     {
-        public string Titulo {get; set; } 
-        public double Valor {get; set; }
+        public string Titulo { get; set; }
+        public double Valor { get; set; }
 
-    public Plano(string titulo, double valor){
-        Titulo = titulo;
-        Valor = valor;
+        public Plano(string titulo, double valor)
+        {
+            Titulo = titulo;
+            Valor = valor;
+        }
+
     }
 
-    }
-        
 }
